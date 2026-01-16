@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Bắc Âu & Đông Âu</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Các Quốc Gia Khu vực Bắc Âu & Đông Âu" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/f6/36/2c/f6362ce8c27d36734fa6d215ede0dab4.jpg" />
+    <meta property="og:url" content="https://mekeconnghe.github.io/vongquanhthegioi/bacauvadongau/" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Các Quốc Gia Khu Vực Bắc Âu & Đông Âu
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/20</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Vương quốc Anh (UK)", image: "vuong-quoc-anh.jpg",
+                facts: [
+                    "<b>Trà:</b> Người Anh cực kỳ yêu thích trà, họ uống khoảng 100 triệu tách trà mỗi ngày.",
+                    "<b>Đồng hồ:</b> Tháp Big Ben thực ra là tên của quả chuông khổng lồ bên trong, không phải tên tòa tháp.",
+                    "<b>Xe buýt:</b> Xe buýt hai tầng màu đỏ rực rỡ là biểu tượng nổi tiếng thế giới của thủ đô London.",
+                    "<b>Hoàng gia:</b> Là một trong số ít quốc gia vẫn còn Nữ hoàng/Vua và gia đình Hoàng gia sinh sống trong cung điện.",
+                    "<b>Ngôn ngữ:</b> Tiếng Anh là ngôn ngữ phổ biến nhất thế giới, bắt nguồn từ chính đất nước này."
+                ]
+            },
+            {
+                id: 2, name: "Đan Mạch", image: "dan-mach.jpg",
+                facts: [
+                    "<b>Đồ chơi:</b> Là quê hương của LEGO - món đồ chơi xếp hình nổi tiếng nhất thế giới.",
+                    "<b>Xe đạp:</b> Người dân đi xe đạp rất nhiều, ở thủ đô số lượng xe đạp còn nhiều hơn cả ô tô.",
+                    "<b>Hạnh phúc:</b> Thường xuyên được bình chọn là một trong những quốc gia hạnh phúc nhất thế giới.",
+                    "<b>Truyện cổ:</b> Là quê hương của Hans Christian Andersen, tác giả truyện 'Nàng tiên cá', 'Vịt con xấu xí'.",
+                    "<b>Cờ:</b> Quốc kỳ Đan Mạch được xem là lá cờ lâu đời nhất thế giới vẫn còn được sử dụng."
+                ]
+            },
+            {
+                id: 3, name: "Estonia", image: "estonia.jpg",
+                facts: [
+                    "<b>Công nghệ:</b> Skype (ứng dụng gọi điện nổi tiếng) được phát minh tại đất nước nhỏ bé này.",
+                    "<b>Internet:</b> Việc truy cập Internet được coi là một quyền cơ bản của con người tại đây.",
+                    "<b>Không khí:</b> Là một trong những nơi có bầu không khí sạch nhất trên thế giới.",
+                    "<b>Rừng:</b> Hơn một nửa diện tích đất nước được bao phủ bởi rừng xanh mát.",
+                    "<b>Xích đu:</b> Kiiking là môn thể thao cảm giác mạnh truyền thống: đu xích đu quay vòng tròn 360 độ."
+                ]
+            },
+            {
+                id: 4, name: "Iceland (Băng Đảo)", image: "iceland.jpg",
+                facts: [
+                    "<b>Muỗi:</b> Đây là quốc gia duy nhất trên thế giới hoàn toàn không có muỗi.",
+                    "<b>Lửa và Băng:</b> Được gọi là 'Vùng đất của Lửa và Băng' vì có cả núi lửa phun trào và sông băng lạnh giá.",
+                    "<b>Bắc cực quang:</b> Là nơi tuyệt vời để ngắm những dải ánh sáng xanh kỳ ảo trên bầu trời đêm.",
+                    "<b>Năng lượng:</b> Hầu hết nhà cửa được sưởi ấm bằng nước nóng tự nhiên từ lòng đất (địa nhiệt).",
+                    "<b>Tên gọi:</b> Người dân không dùng họ như chúng ta, tên họ được đặt theo tên của bố hoặc mẹ."
+                ]
+            },
+            {
+                id: 5, name: "Ireland", image: "ireland.jpg",
+                facts: [
+                    "<b>Màu xanh:</b> Được gọi là 'Hòn đảo Ngọc lục bảo' vì cây cỏ ở đây xanh tốt quanh năm.",
+                    "<b>Rắn:</b> Truyền thuyết kể rằng Thánh Patrick đã đuổi hết loài rắn ra khỏi đảo, nên ở đây không có rắn.",
+                    "<b>Halloween:</b> Lễ hội Halloween hóa trang ma quái bắt nguồn từ lễ hội cổ xưa tại đây.",
+                    "<b>Nhạc cụ:</b> Cây đàn Hạc (Harp) là biểu tượng quốc gia, được in trên tiền xu và hộ chiếu.",
+                    "<b>Tàu Titanic:</b> Con tàu Titanic huyền thoại được đóng tại thành phố Belfast trên hòn đảo này."
+                ]
+            },
+            {
+                id: 6, name: "Latvia", image: "latvia.jpg",
+                facts: [
+                    "<b>Thác nước:</b> Có thác nước Ventas Rumba rộng nhất châu Âu (khoảng 249m).",
+                    "<b>Chiều cao:</b> Phụ nữ Latvia được xếp hạng là những người phụ nữ cao nhất thế giới.",
+                    "<b>Internet:</b> Tốc độ Internet ở đây thuộc hàng nhanh nhất thế giới.",
+                    "<b>Đá quý:</b> Nổi tiếng với Hổ phách (nhựa cây hóa thạch) trôi dạt vào bờ biển Baltic.",
+                    "<b>Bánh mì:</b> Bánh mì lúa mạch đen là món ăn chính và rất được người dân yêu thích."
+                ]
+            },
+            {
+                id: 7, name: "Lithuania", image: "lithuania.jpg",
+                facts: [
+                    "<b>Bóng rổ:</b> Bóng rổ là môn thể thao vua, được coi như tôn giáo thứ hai tại đất nước này.",
+                    "<b>Cò trắng:</b> Được mệnh danh là 'Vùng đất của loài cò', chim cò là quốc điểu mang lại may mắn.",
+                    "<b>Mùi hương:</b> Là quốc gia đầu tiên trên thế giới có 'Nước hoa quốc gia' mang mùi hương đặc trưng của đất nước.",
+                    "<b>Trung tâm:</b> Theo các nhà địa lý Pháp, trung tâm địa lý của châu Âu nằm tại Lithuania.",
+                    "<b>Ngôn ngữ:</b> Tiếng Lithuania là một trong những ngôn ngữ cổ xưa nhất thế giới còn tồn tại."
+                ]
+            },
+            {
+                id: 8, name: "Na Uy (Norway)", image: "na-uy.jpg",
+                facts: [
+                    "<b>Sushi:</b> Món Sushi cá hồi nổi tiếng của Nhật Bản thực ra do người Na Uy giới thiệu sang Nhật.",
+                    "<b>Vịnh:</b> Nổi tiếng với các Vịnh hẹp (Fjord) hùng vĩ ăn sâu vào đất liền tuyệt đẹp.",
+                    "<b>Hiệp sĩ:</b> Có một chú chim cánh cụt tên là Nils Olav được phong tước Hiệp sĩ Hoàng gia.",
+                    "<b>Mặt trời:</b> Vào mùa hè ở phía Bắc, mặt trời chiếu sáng cả đêm, gọi là 'Mặt trời đêm'.",
+                    "<b>Xe điện:</b> Người dân rất ý thức bảo vệ môi trường, đa số ô tô bán ra là xe điện."
+                ]
+            },
+            {
+                id: 9, name: "Phần Lan", image: "phan-lan.jpg",
+                facts: [
+                    "<b>Ông già Noel:</b> Được coi là quê hương chính thức của Ông già Noel với ngôi làng ở vùng Lapland.",
+                    "<b>Hồ nước:</b> Được gọi là 'Xứ sở nghìn hồ' vì có tới hơn 188.000 cái hồ lớn nhỏ.",
+                    "<b>Xông hơi:</b> Có nhiều phòng tắm hơi (Sauna) hơn cả ô tô, trung bình mỗi gia đình đều có một cái.",
+                    "<b>Giáo dục:</b> Hệ thống giáo dục trường học ở đây luôn được xếp hạng tốt nhất thế giới.",
+                    "<b>Thất bại:</b> Có một ngày lễ lạ lùng gọi là 'Ngày của sự thất bại' để mọi người học hỏi từ sai lầm."
+                ]
+            },
+            {
+                id: 10, name: "Thụy Điển", image: "thuy-dien.jpg",
+                facts: [
+                    "<b>Tái chế:</b> Giỏi tái chế rác đến mức họ phải... nhập khẩu rác từ nước khác để chạy nhà máy điện.",
+                    "<b>Nội thất:</b> Là quê hương của IKEA, hãng nội thất tự lắp ráp lớn nhất thế giới.",
+                    "<b>Fika:</b> Văn hóa 'Fika' là nghỉ giải lao uống cà phê và ăn bánh ngọt, rất quan trọng trong ngày.",
+                    "<b>Giải thưởng:</b> Giải thưởng Nobel danh giá (trừ giải Hòa bình) được trao hàng năm tại thủ đô Stockholm.",
+                    "<b>Rừng:</b> Hơn một nửa diện tích đất nước được bao phủ bởi rừng rậm."
+                ]
+            },
+            {
+                id: 11, name: "Belarus", image: "belarus.jpg",
+                facts: [
+                    "<b>Khoai tây:</b> Người dân cực kỳ thích ăn khoai tây với hơn 300 món ăn khác nhau chế biến từ củ này.",
+                    "<b>Bò rừng:</b> Rừng Belovezhskaya Pushcha là nơi sinh sống của loài Bò rừng châu Âu khổng lồ.",
+                    "<b>Xe tải:</b> Sản xuất ra chiếc xe tải khai thác mỏ lớn nhất thế giới (BelAZ) to như một ngôi nhà.",
+                    "<b>Thư viện:</b> Thư viện Quốc gia có hình dạng một viên kim cương khổng lồ phát sáng vào ban đêm.",
+                    "<b>Phẳng:</b> Địa hình đất nước rất bằng phẳng, không có núi cao hay biển cả."
+                ]
+            },
+            {
+                id: 12, name: "Bulgaria", image: "bulgaria.jpg",
+                facts: [
+                    "<b>Hoa hồng:</b> Được mệnh danh là 'Xứ sở hoa hồng', sản xuất phần lớn tinh dầu hoa hồng cho thế giới.",
+                    "<b>Sữa chua:</b> Vi khuẩn làm sữa chua được đặt tên theo nước này, sữa chua ở đây cực ngon.",
+                    "<b>Gật đầu:</b> Ở đây, gật đầu nghĩa là 'Không', còn lắc đầu mới nghĩa là 'Có'. Đừng nhầm nhé!",
+                    "<b>Chữ viết:</b> Bảng chữ cái Cyrillic (dùng ở Nga và nhiều nước Đông Âu) được phát minh tại đây.",
+                    "<b>Vàng:</b> Kho báu vàng gia công cổ xưa nhất thế giới (hơn 6.000 năm tuổi) được tìm thấy ở đây."
+                ]
+            },
+            {
+                id: 13, name: "Cộng hòa Séc", image: "cong-hoa-sec.jpg",
+                facts: [
+                    "<b>Lâu đài:</b> Có mật độ lâu đài dày đặc nhất thế giới, đi đâu cũng gặp cung điện cổ kính.",
+                    "<b>Đồng hồ:</b> Đồng hồ Thiên văn ở Praha là đồng hồ cổ nhất vẫn còn hoạt động, có các tượng gỗ chuyển động.",
+                    "<b>Kính áp tròng:</b> Kính áp tròng mềm mà nhiều người đeo ngày nay được phát minh bởi một nhà khoa học Séc.",
+                    "<b>Múa rối:</b> Nghệ thuật múa rối dây và làm con rối gỗ rất nổi tiếng và tinh xảo.",
+                    "<b>Pha lê:</b> Pha lê Bohemia của Séc lấp lánh và nổi tiếng sang trọng khắp toàn cầu."
+                ]
+            },
+            {
+                id: 14, name: "Hungary", image: "hungary.jpg",
+                facts: [
+                    "<b>Rubik:</b> Khối lập phương Rubik hại não được phát minh bởi một kiến trúc sư người Hungary.",
+                    "<b>Suối nước nóng:</b> Thủ đô Budapest có rất nhiều nhà tắm hơi công cộng đẹp như cung điện.",
+                    "<b>Số 96:</b> Con số 96 rất thiêng liêng, luật quy định các tòa nhà không được cao quá 96 mét.",
+                    "<b>Ớt bột:</b> Paprika (bột ớt) là gia vị vàng đỏ không thể thiếu trong mọi bữa ăn.",
+                    "<b>Biển:</b> Hồ Balaton lớn đến mức người dân gọi nó là 'Biển Hungary' dù nước này không giáp biển."
+                ]
+            },
+            {
+                id: 15, name: "Moldova", image: "moldova.jpg",
+                facts: [
+                    "<b>Hầm rượu:</b> Có hầm rượu Mileștii Mici lớn nhất thế giới với hàng triệu chai rượu cất dưới lòng đất.",
+                    "<b>Ít du khách:</b> Là một trong những quốc gia ít khách du lịch nhất châu Âu, giữ được vẻ đẹp hoang sơ.",
+                    "<b>Hướng dương:</b> Hoa hướng dương được trồng bạt ngàn khắp nơi để lấy hạt và dầu.",
+                    "<b>Ngôn ngữ:</b> Người dân nói tiếng Romania nhưng cũng thông thạo cả tiếng Nga.",
+                    "<b>Bữa ăn:</b> Món cháo ngô Mamaliga là món ăn truyền thống giản dị nhưng rất phổ biến."
+                ]
+            },
+            {
+                id: 16, name: "Ba Lan (Poland)", image: "ba-lan.jpg",
+                facts: [
+                    "<b>Khoa học:</b> Là quê hương của Marie Curie - người phụ nữ đầu tiên đạt giải Nobel.",
+                    "<b>Gấu:</b> Từng có một chú gấu tên Wojtek phục vụ trong quân đội như một người lính thực thụ.",
+                    "<b>Lâu đài:</b> Lâu đài Malbork là lâu đài xây bằng gạch lớn nhất thế giới.",
+                    "<b>Bánh bao:</b> Món Pierogi (bánh bao Ba Lan) nhân thịt hoặc khoai tây là món ăn quốc hồn quốc túy.",
+                    "<b>Rừng:</b> Rừng Bialowieza là khu rừng nguyên sinh cổ đại cuối cùng còn sót lại ở châu Âu."
+                ]
+            },
+            {
+                id: 17, name: "Romania", image: "romania.jpg",
+                facts: [
+                    "<b>Ma cà rồng:</b> Lâu đài Bran nổi tiếng gắn liền với truyền thuyết về Bá tước Dracula (Ma cà rồng).",
+                    "<b>Tòa nhà:</b> Cung điện Nghị viện là tòa nhà hành chính nặng nhất và đắt nhất thế giới.",
+                    "<b>Sông:</b> Sông Danube chảy ra biển Đen tạo thành vùng đồng bằng sông nước tuyệt đẹp.",
+                    "<b>Vàng:</b> Có bảo tàng Vàng duy nhất ở châu Âu trưng bày vàng tự nhiên khai thác từ lòng đất.",
+                    "<b>Đường đèo:</b> Con đường Transfagarasan ngoằn ngoèo qua núi được coi là đường đẹp nhất thế giới."
+                ]
+            },
+            {
+                id: 18, name: "Nga", image: "nga.jpg",
+                facts: [
+                    "<b>Diện tích:</b> Là quốc gia lớn nhất thế giới, diện tích lớn hơn cả Sao Diêm Vương.",
+                    "<b>Đường sắt:</b> Tuyến đường sắt xuyên Siberia dài nhất thế giới, đi hết mất cả tuần lễ.",
+                    "<b>Hồ:</b> Hồ Baikal chứa lượng nước ngọt nhiều hơn bất kỳ hồ nào khác trên Trái Đất.",
+                    "<b>Tetris:</b> Trò chơi xếp gạch Tetris huyền thoại được lập trình bởi một người Nga.",
+                    "<b>Búp bê:</b> Búp bê Matryoshka là bộ búp bê gỗ lồng vào nhau, con to chứa con nhỏ bên trong."
+                ]
+            },
+            {
+                id: 19, name: "Slovakia", image: "slovakia.jpg",
+                facts: [
+                    "<b>Lâu đài:</b> Tính theo đầu người, đây là nước có nhiều lâu đài và cung điện nhất thế giới.",
+                    "<b>Hang động:</b> Có hơn 6.000 hang động tuyệt đẹp ẩn mình dưới lòng đất.",
+                    "<b>Thủ đô:</b> Thủ đô Bratislava là thủ đô duy nhất giáp biên giới với cả hai quốc gia khác.",
+                    "<b>Xe bay:</b> Chiếc xe ô tô bay (AirCar) đầu tiên được chế tạo và thử nghiệm thành công tại đây.",
+                    "<b>Nước:</b> Có nguồn dự trữ nước ngọt ngầm khổng lồ, chất lượng nước rất tinh khiết."
+                ]
+            },
+            {
+                id: 20, name: "Ukraine", image: "ukraine.jpg",
+                facts: [
+                    "<b>Hoa:</b> Hoa hướng dương là quốc hoa, nước này sản xuất dầu hướng dương nhiều nhất thế giới.",
+                    "<b>Tàu điện:</b> Ga tàu điện ngầm Arsenalna là ga nằm sâu nhất thế giới (105m dưới lòng đất).",
+                    "<b>Máy bay:</b> Chiếc máy bay lớn nhất và nặng nhất thế giới Mriya (Giấc mơ) được chế tạo tại đây.",
+                    "<b>Áo:</b> Áo thêu truyền thống Vyshyvanka được người dân mặc trong các dịp lễ hội rất đẹp.",
+                    "<b>McDonald's:</b> Cửa hàng McDonald's ở nhà ga Kiev từng là nơi đông khách thứ 3 thế giới."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Quốc Gia Khu Vực Bắc Âu & Đông Âu!
+                        </p>
+                    </div>
+                    
+                    <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                       target="_blank"
+                       class="flex items-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100 mt-2">
+                        <i data-lucide="gift" class="w-6 h-6"></i>
+                        Xem tốt sản phẩm cho Mẹ & Bé 
+                    </a>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
