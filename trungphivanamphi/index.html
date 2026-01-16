@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Các Quốc Gia Châu Phi (Phần 2)</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Các khu vực Trung Phi và Nam Phi" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/b9/09/9a/b9099a5dcfc16fecfa6006a17efb64ad.jpg" />
+    <meta property="og:url" content="https://mekeconnghe.github.io/vongquanhthegioi/trungphivanamphi/" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Trung Phi Và Nam Phi
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/14</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Angola", image: "angola.jpg",
+                facts: [
+                    "<b>Thác nước:</b> Thác Kalandula tại đây là một trong những thác nước lớn nhất châu Phi theo thể tích.",
+                    "<b>Động vật:</b> Là nơi sinh sống duy nhất của loài Linh dương đen khổng lồ (Giant Sable Antelope).",
+                    "<b>Văn hóa:</b> Quê hương của điệu nhảy Kizomba quyến rũ nổi tiếng khắp thế giới.",
+                    "<b>Tài nguyên:</b> Rất giàu tài nguyên thiên nhiên, đặc biệt là dầu mỏ và kim cương.",
+                    "<b>Dân số:</b> Là một quốc gia rất trẻ, với khoảng 70% dân số dưới 24 tuổi."
+                ]
+            },
+            {
+                id: 2, name: "Cameroon", image: "cameroon.jpg",
+                facts: [
+                    "<b>Biệt danh:</b> Được gọi là 'Châu Phi thu nhỏ' vì có đủ mọi địa hình từ biển, sa mạc đến rừng rậm.",
+                    "<b>Bóng đá:</b> Đội tuyển quốc gia có biệt danh 'Những chú sư tử bất khuất', rất nổi tiếng thế giới.",
+                    "<b>Núi lửa:</b> Núi Cameroon là ngọn núi lửa đang hoạt động cao nhất ở Tây và Trung Phi.",
+                    "<b>Ngôn ngữ:</b> Là nhà của hơn 200 nhóm ngôn ngữ khác nhau cùng chung sống.",
+                    "<b>Đặc sản:</b> Là một trong những nước trồng nhiều ca cao và cà phê ngon nhất khu vực."
+                ]
+            },
+            {
+                id: 3, name: "Cộng hòa Trung Phi", image: "cong-hoa-trung-phi.jpg",
+                facts: [
+                    "<b>Thiên nhiên:</b> Nổi tiếng với những khu rừng rậm là nơi trú ẩn của loài voi rừng quý hiếm.",
+                    "<b>Bầu trời:</b> Là một trong những nơi có bầu trời đêm tối nhất thế giới, tuyệt vời để ngắm sao.",
+                    "<b>Sinh thái:</b> Khu bảo tồn Dzanga-Sangha là nơi tốt nhất để quan sát khỉ đột vùng đất thấp.",
+                    "<b>Sông ngòi:</b> Sông Ubangi là tuyến đường giao thông huyết mạch quan trọng nhất đất nước.",
+                    "<b>Mật độ:</b> Dù diện tích lớn nhưng dân số rất thưa thớt, thiên nhiên còn rất hoang sơ."
+                ]
+            },
+            {
+                id: 4, name: "Chad", image: "chad.jpg",
+                facts: [
+                    "<b>Hồ nước:</b> Hồ Chad từng là hồ nước ngọt khổng lồ nhưng đã thu hẹp đáng kể trong 50 năm qua.",
+                    "<b>Địa lý:</b> Được ví là 'Trái tim chết của Châu Phi' do vị trí nằm sâu trong lục địa và khí hậu nóng.",
+                    "<b>Khảo cổ:</b> Nơi tìm thấy hóa thạch 'Toumaï' - hộp sọ được cho là của tổ tiên loài người cổ xưa nhất.",
+                    "<b>Động vật:</b> Vườn quốc gia Zakouma là câu chuyện thành công lớn về bảo tồn đàn voi châu Phi.",
+                    "<b>Kinh tế:</b> Bông vải và chăn nuôi gia súc là nguồn sống chính của người dân nơi đây."
+                ]
+            },
+            {
+                id: 5, name: "Cộng hòa Congo", image: "congo-brazzaville.jpg",
+                facts: [
+                    "<b>Thủ đô:</b> Brazzaville nằm đối diện thủ đô Kinshasa qua sông Congo, là hai thủ đô gần nhau nhất thế giới.",
+                    "<b>Rừng rậm:</b> Sở hữu phần lớn Rừng nhiệt đới Congo, lá phổi xanh thứ hai của Trái đất.",
+                    "<b>Động vật:</b> Là nơi sinh sống chủ yếu của phần lớn loài Khỉ đột vùng đất thấp phía Tây.",
+                    "<b>Sông sâu:</b> Sông Congo chảy qua đây là con sông sâu nhất thế giới (hơn 220m).",
+                    "<b>Huyền thoại:</b> Có truyền thuyết về quái vật Mokele-mbembe (giống khủng long) sống trong rừng rậm."
+                ]
+            },
+            {
+                id: 6, name: "Cộng hòa Dân chủ Congo", image: "drc.jpg",
+                facts: [
+                    "<b>Quy mô:</b> Là quốc gia có diện tích lớn thứ hai ở châu Phi (sau Algeria).",
+                    "<b>Thiên nhiên:</b> Vườn quốc gia Virunga là vườn quốc gia lâu đời nhất châu Phi.",
+                    "<b>Khoáng sản:</b> Cực kỳ giàu tài nguyên, đặc biệt là Cobalt (dùng làm pin điện thoại, xe điện).",
+                    "<b>Độc đáo:</b> Là nơi duy nhất trên thế giới có loài thú Okapi (nhìn giống lai giữa hươu cao cổ và ngựa vằn).",
+                    "<b>Núi lửa:</b> Có ngọn núi lửa Nyiragongo chứa hồ nham thạch sôi sục lớn nhất thế giới."
+                ]
+            },
+            {
+                id: 7, name: "Guinea Xích đạo", image: "guinea-xich-dao.jpg",
+                facts: [
+                    "<b>Ngôn ngữ:</b> Là quốc gia duy nhất ở châu Phi lấy tiếng Tây Ban Nha làm ngôn ngữ chính thức.",
+                    "<b>Thủ đô:</b> Thủ đô Malabo nằm trên một hòn đảo (Bioko) chứ không nằm trên đất liền.",
+                    "<b>Diện tích:</b> Là một trong những quốc gia nhỏ nhất nhưng giàu có nhờ dầu mỏ.",
+                    "<b>Động vật:</b> Nổi tiếng với loài ếch Goliath - loài ếch lớn nhất thế giới (nặng tới 3kg).",
+                    "<b>Kiến trúc:</b> Có nhiều tòa nhà mang phong cách thuộc địa Tây Ban Nha rất đẹp."
+                ]
+            },
+            {
+                id: 8, name: "Gabon", image: "gabon.jpg",
+                facts: [
+                    "<b>Rừng xanh:</b> Hơn 85% diện tích đất nước được bao phủ bởi rừng mưa nhiệt đới rậm rạp.",
+                    "<b>Biệt danh:</b> Được mệnh danh là 'Vườn địa đàng cuối cùng' của châu Phi.",
+                    "<b>Độc lạ:</b> Tại bờ biển Loango, bạn có thể thấy hà mã và voi đi dạo trên bãi biển và 'lướt sóng'.",
+                    "<b>Bảo tồn:</b> Tổng thống từng quyết định dành 10% diện tích đất nước làm công viên quốc gia.",
+                    "<b>Dân số:</b> Mật độ dân số rất thấp, giúp bảo tồn thiên nhiên hoang dã cực tốt."
+                ]
+            },
+            {
+                id: 9, name: "Sao Tome và Principe", image: "sao-tome.jpg",
+                facts: [
+                    "<b>Kích thước:</b> Là quốc gia nhỏ thứ hai ở châu Phi (sau Seychelles).",
+                    "<b>Sô-cô-la:</b> Từng là nhà sản xuất ca cao lớn nhất thế giới, được gọi là 'Đảo Chocolate'.",
+                    "<b>Địa lý:</b> Nằm rất gần giao điểm của Đường Xích đạo và Kinh tuyến gốc (trung tâm bản đồ thế giới).",
+                    "<b>Núi lửa:</b> Quần đảo này thực chất là các đỉnh của chuỗi núi lửa đã tắt dưới đáy biển.",
+                    "<b>Lễ hội:</b> Có lễ hội 'Auto de Floripes' tái hiện lịch sử châu Âu rất độc đáo."
+                ]
+            },
+            {
+                id: 10, name: "Botswana", image: "botswana.jpg",
+                facts: [
+                    "<b>Voi:</b> Là quốc gia có số lượng voi hoang dã lớn nhất thế giới.",
+                    "<b>Kỳ quan:</b> Đồng bằng Okavango là đồng bằng nội địa lớn nhất thế giới, nhìn rõ từ vũ trụ.",
+                    "<b>Sa mạc:</b> Phần lớn lãnh thổ là sa mạc Kalahari khô cằn với cát đỏ đặc trưng.",
+                    "<b>Kinh tế:</b> Là một trong những nước phát triển ổn định nhất châu Phi nhờ quản lý tốt kim cương.",
+                    "<b>Động vật:</b> Nổi tiếng với cuộc di cư hàng năm của hàng nghìn con ngựa vằn."
+                ]
+            },
+            {
+                id: 11, name: "Eswatini", image: "eswatini.jpg",
+                facts: [
+                    "<b>Thể chế:</b> Là chế độ quân chủ chuyên chế cuối cùng còn lại ở châu Phi (Vua có quyền lực tối cao).",
+                    "<b>Tên cũ:</b> Trước đây có tên là Swaziland, được đổi tên vào năm 2018.",
+                    "<b>Văn hóa:</b> Nổi tiếng với lễ hội Múa Sậy (Reed Dance) quy tụ hàng ngàn thiếu nữ tham gia.",
+                    "<b>Tê giác:</b> Là một trong những nơi bảo tồn tê giác tốt nhất thế giới với luật pháp nghiêm ngặt.",
+                    "<b>Địa hình:</b> Dù nhỏ bé nhưng cảnh quan đa dạng từ núi cao đến thảo nguyên nhiệt đới."
+                ]
+            },
+            {
+                id: 12, name: "Lesotho", image: "lesotho.jpg",
+                facts: [
+                    "<b>Vị trí:</b> Là quốc gia nằm trọn vẹn trong lòng nước Nam Phi (quốc gia nội bao).",
+                    "<b>Độ cao:</b> Được gọi là 'Vương quốc trên mây' vì toàn bộ lãnh thổ đều nằm ở độ cao trên 1.000m.",
+                    "<b>Tuyết:</b> Là một trong số rất ít nơi ở châu Phi có tuyết rơi thường xuyên và có khu trượt tuyết.",
+                    "<b>Trang phục:</b> Người dân thường khoác chăn len Basotho sặc sỡ và đội nón rơm hình nón.",
+                    "<b>Thác nước:</b> Thác Maletsunyane là một trong những thác nước đơn cao nhất châu Phi."
+                ]
+            },
+            {
+                id: 13, name: "Namibia", image: "namibia.jpg",
+                facts: [
+                    "<b>Cổ xưa:</b> Sa mạc Namib được coi là sa mạc lâu đời nhất thế giới (khoảng 55 triệu năm).",
+                    "<b>Đồi cát:</b> Sossusvlei có những đồi cát đỏ cao nhất thế giới, rực rỡ dưới ánh mặt trời.",
+                    "<b>Bờ biển:</b> 'Bờ biển Xương' (Skeleton Coast) rải rác xác tàu đắm do sương mù và bão.",
+                    "<b>Động vật:</b> Là nơi có quần thể Báo gấm (Cheetah) tự do lớn nhất thế giới.",
+                    "<b>Hẻm núi:</b> Hẻm núi Fish River là hẻm núi lớn thứ hai thế giới, chỉ sau Grand Canyon ở Mỹ."
+                ]
+            },
+            {
+                id: 14, name: "Nam Phi", image: "nam-phi.jpg",
+                facts: [
+                    "<b>Thủ đô:</b> Là quốc gia duy nhất có tới 3 thủ đô (Pretoria, Cape Town, Bloemfontein).",
+                    "<b>Biểu tượng:</b> Núi Bàn (Table Mountain) tại Cape Town là một trong 7 kỳ quan thiên nhiên mới.",
+                    "<b>Văn hóa:</b> Được gọi là 'Quốc gia Cầu vồng' với 11 ngôn ngữ chính thức.",
+                    "<b>Chim:</b> Bạn có thể ngắm chim cánh cụt châu Phi bơi lội tại bãi biển Boulders.",
+                    "<b>Lịch sử:</b> Gắn liền với tên tuổi của Nelson Mandela và cuộc đấu tranh chống chế độ Apartheid."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Quốc Gia Châu Phi!
+                        </p>
+                    </div>
+                    
+                    <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                       target="_blank"
+                       class="flex items-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100 mt-2">
+                        <i data-lucide="gift" class="w-6 h-6"></i>
+                        Xem tốt sản phẩm cho Mẹ & Bé 
+                    </a>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
