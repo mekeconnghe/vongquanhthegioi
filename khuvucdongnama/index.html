@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Các Quốc Gia Châu Á</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Các Quốc Gia Khu vực Đông Á - Đông Nam Á - Nam Á" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/2c/c5/5e/2cc55e20c75b176f7e0dee998417c971.jpg" />
+    <meta property="og:url" content="https://mekeconnghe.github.io/vongquanhthegioi/khuvucdongnama/" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Các Quốc Gia Đông Á - Đông Nam Á - Nam Á
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/25</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Việt Nam", image: "viet-nam.jpg",
+                facts: [
+                    "<b>Địa lý:</b> Lãnh thổ đất liền có hình dáng giống chữ 'S' duyên dáng trải dài ven biển.",
+                    "<b>Cà phê:</b> Là nước xuất khẩu cà phê lớn thứ hai trên thế giới (chỉ sau Brazil).",
+                    "<b>Hang động:</b> Sở hữu hang Sơn Đoòng, hang động tự nhiên lớn nhất thế giới.",
+                    "<b>Ẩm thực:</b> Món 'Phở' và 'Bánh mì' được biết đến và yêu thích trên toàn cầu.",
+                    "<b>Nông nghiệp:</b> Là một trong những quốc gia xuất khẩu gạo hàng đầu thế giới."
+                ]
+            },
+            {
+                id: 2, name: "Lào", image: "lao.jpg",
+                facts: [
+                    "<b>Biệt danh:</b> Được gọi là 'Đất nước Triệu Voi' (Lan Xang) do lịch sử gắn liền với loài voi.",
+                    "<b>Địa lý:</b> Là quốc gia duy nhất ở Đông Nam Á không có đường bờ biển (nằm kín trong lục địa).",
+                    "<b>Ẩm thực:</b> Người Lào ăn xôi nhiều nhất thế giới, xôi là món ăn chính trong mỗi bữa ăn.",
+                    "<b>Sông ngòi:</b> Sông Mekong chảy qua Lào dài nhất so với các nước khác trong khu vực.",
+                    "<b>Bí ẩn:</b> Cánh đồng Chum ở Xiengkhuang chứa hàng ngàn chiếc chum đá khổng lồ chưa rõ nguồn gốc."
+                ]
+            },
+            {
+                id: 3, name: "Campuchia", image: "campuchia.jpg",
+                facts: [
+                    "<b>Kỳ quan:</b> Angkor Wat là di tích tôn giáo lớn nhất thế giới và là niềm tự hào quốc gia.",
+                    "<b>Cờ:</b> Là quốc kỳ duy nhất trên thế giới có in hình một công trình kiến trúc (Angkor Wat).",
+                    "<b>Hồ nước:</b> Biển Hồ (Tonle Sap) là hồ nước ngọt lớn nhất Đông Nam Á, nước chảy ngược mùa lũ.",
+                    "<b>Phương tiện:</b> Xe Tuk-tuk là phương tiện di chuyển phổ biến và thú vị cho du khách.",
+                    "<b>Năm mới:</b> Tết cổ truyền gọi là Chol Chnam Thmay, thường diễn ra vào tháng 4 dương lịch."
+                ]
+            },
+            {
+                id: 4, name: "Thái Lan", image: "thai-lan.jpg",
+                facts: [
+                    "<b>Lịch sử:</b> Là quốc gia Đông Nam Á duy nhất chưa từng bị thực dân Châu Âu đô hộ.",
+                    "<b>Biệt danh:</b> Được mệnh danh là 'Đất nước của những nụ cười' vì sự thân thiện của người dân.",
+                    "<b>Tên gọi:</b> Tên thủ đô Bangkok theo tiếng Thái là tên địa danh dài nhất thế giới.",
+                    "<b>Văn hóa:</b> Lễ hội té nước Songkran vào năm mới là lễ hội lớn và vui nhộn nhất.",
+                    "<b>Động vật:</b> Voi là biểu tượng quốc gia và được người dân vô cùng tôn kính."
+                ]
+            },
+            {
+                id: 5, name: "Myanmar", image: "myanmar.jpg",
+                facts: [
+                    "<b>Kiến trúc:</b> Được gọi là 'Đất nước của những ngôi chùa vàng' với hàng vạn ngôi chùa lấp lánh.",
+                    "<b>Trang điểm:</b> Phụ nữ và trẻ em thường bôi bột Thanaka màu vàng lên má để chống nắng và làm đẹp.",
+                    "<b>Trang phục:</b> Cả đàn ông và phụ nữ đều mặc váy truyền thống gọi là Longyi.",
+                    "<b>Di tích:</b> Cố đô Bagan từng có hơn 10.000 ngôi đền chùa, nay còn lại hơn 2.000 di tích.",
+                    "<b>Thể thao:</b> Chinlone (cầu mây) là môn thể thao truyền thống kết hợp giữa múa và bóng đá."
+                ]
+            },
+            {
+                id: 6, name: "Malaysia", image: "malaysia.jpg",
+                facts: [
+                    "<b>Kiến trúc:</b> Tháp đôi Petronas ở Kuala Lumpur từng là tòa nhà cao nhất thế giới.",
+                    "<b>Thực vật:</b> Là nơi có loài hoa Rafflesia lớn nhất thế giới, có thể nở to như cái bàn.",
+                    "<b>Trái cây:</b> Được mệnh danh là 'Vua sầu riêng' với giống Musang King nổi tiếng.",
+                    "<b>Văn hóa:</b> Là quốc gia đa sắc tộc, nơi người Mã Lai, Hoa, Ấn sống hòa thuận cùng nhau.",
+                    "<b>Địa lý:</b> Lãnh thổ bị chia cắt làm hai phần bởi Biển Đông (Bán đảo và đảo Borneo)."
+                ]
+            },
+            {
+                id: 7, name: "Singapore", image: "singapore.jpg",
+                facts: [
+                    "<b>Biểu tượng:</b> Merlion (đầu sư tử, mình cá) là biểu tượng huyền thoại của đảo quốc này.",
+                    "<b>Sạch sẽ:</b> Nổi tiếng là thành phố sạch nhất thế giới, kẹo cao su bị cấm nhập khẩu và buôn bán.",
+                    "<b>Cây xanh:</b> Được gọi là 'Thành phố trong vườn' với mật độ cây xanh phủ kín các tòa nhà.",
+                    "<b>Tốc độ:</b> Người dân Singapore có tốc độ đi bộ nhanh nhất thế giới.",
+                    "<b>Diện tích:</b> Quốc gia này liên tục 'lớn lên' nhờ công cuộc lấn biển mở rộng lãnh thổ."
+                ]
+            },
+            {
+                id: 8, name: "Indonesia", image: "indonesia.jpg",
+                facts: [
+                    "<b>Đảo:</b> Là quốc gia vạn đảo lớn nhất thế giới với hơn 17.000 hòn đảo lớn nhỏ.",
+                    "<b>Động vật:</b> Là nơi duy nhất trên thế giới có Rồng Komodo, loài thằn lằn lớn nhất hành tinh.",
+                    "<b>Núi lửa:</b> Có nhiều núi lửa hoạt động nhất thế giới, nằm trên 'Vành đai lửa Thái Bình Dương'.",
+                    "<b>Hoa:</b> Hoa xác thối (Titan Arum) khổng lồ và nặng mùi được tìm thấy trong rừng nhiệt đới ở đây.",
+                    "<b>Di sản:</b> Đền Borobudur là ngôi chùa Phật giáo lớn nhất thế giới được xây từ thế kỷ 9."
+                ]
+            },
+            {
+                id: 9, name: "Philippines", image: "philippines.jpg",
+                facts: [
+                    "<b>Xe cộ:</b> Xe Jeepney rực rỡ sắc màu là phương tiện công cộng đặc trưng và biểu tượng văn hóa.",
+                    "<b>Lễ hội:</b> Là quốc gia có mùa Giáng sinh dài nhất thế giới, bắt đầu từ tháng 9.",
+                    "<b>Thiên nhiên:</b> Đồi Chocolate ở Bohol gồm hơn 1.200 ngọn đồi đổi màu nâu vào mùa khô.",
+                    "<b>Động vật:</b> Khỉ lùn Tarsier tại đây là một trong những loài linh trưởng nhỏ nhất thế giới.",
+                    "<b>Giao tiếp:</b> Được mệnh danh là 'Thủ đô nhắn tin của thế giới' vì người dân nhắn tin rất nhiều."
+                ]
+            },
+            {
+                id: 10, name: "Brunei", image: "brunei.jpg",
+                facts: [
+                    "<b>Giàu có:</b> Là một trong những quốc gia giàu nhất thế giới nhờ trữ lượng dầu mỏ khổng lồ.",
+                    "<b>Kiến trúc:</b> Các mái vòm của thánh đường Hồi giáo thường được dát bằng vàng thật.",
+                    "<b>Nhà ở:</b> Kampong Ayer là ngôi làng nổi trên mặt nước lớn nhất thế giới, đầy đủ trường học, thánh đường.",
+                    "<b>Phúc lợi:</b> Người dân không phải đóng thuế thu nhập cá nhân và được khám chữa bệnh miễn phí.",
+                    "<b>Rừng:</b> Phần lớn diện tích đất nước là rừng mưa nhiệt đới nguyên sinh được bảo tồn nghiêm ngặt."
+                ]
+            },
+            {
+                id: 11, name: "Đông Timor", image: "dong-timor.jpg",
+                facts: [
+                    "<b>Tuổi đời:</b> Là quốc gia trẻ nhất Đông Nam Á, chính thức độc lập hoàn toàn vào năm 2002.",
+                    "<b>Huyền thoại:</b> Người dân tin rằng hòn đảo của họ được tạo thành từ thân xác một con cá sấu khổng lồ.",
+                    "<b>Biển:</b> Đảo Atauro có vùng biển đa dạng sinh học nhất thế giới, thiên đường cho thợ lặn.",
+                    "<b>Ngôn ngữ:</b> Tiếng Bồ Đào Nha là một trong những ngôn ngữ chính thức do lịch sử thuộc địa.",
+                    "<b>Tôn giáo:</b> Là một trong hai quốc gia ở Châu Á có đa số dân theo đạo Thiên Chúa (cùng với Philippines)."
+                ]
+            },
+            {
+                id: 12, name: "Trung Quốc", image: "trung-quoc.jpg",
+                facts: [
+                    "<b>Kỳ quan:</b> Vạn Lý Trường Thành là công trình dài nhất thế giới do con người xây dựng.",
+                    "<b>Động vật:</b> Gấu trúc khổng lồ là quốc bảo và chỉ có thể tìm thấy trong tự nhiên tại đây.",
+                    "<b>Dân số:</b> Là một trong những quốc gia đông dân nhất thế giới với hơn 1,4 tỷ người.",
+                    "<b>Phát minh:</b> Là quê hương của 4 phát minh vĩ đại: Giấy, La bàn, Thuốc súng và Nghề in.",
+                    "<b>Trà:</b> Văn hóa uống trà bắt nguồn từ Trung Quốc hàng nghìn năm trước."
+                ]
+            },
+            {
+                id: 13, name: "Nhật Bản", image: "nhat-ban.jpg",
+                facts: [
+                    "<b>Hoa:</b> Hoa Anh Đào (Sakura) nở rộ vào mùa xuân là biểu tượng đẹp đẽ của đất nước.",
+                    "<b>Tàu hỏa:</b> Tàu cao tốc Shinkansen nổi tiếng thế giới về độ an toàn và đúng giờ tuyệt đối.",
+                    "<b>Máy móc:</b> Có mật độ máy bán hàng tự động cao nhất thế giới, bán đủ mọi thứ.",
+                    "<b>Tuổi thọ:</b> Là quốc gia có nhiều người sống thọ trên 100 tuổi nhất thế giới.",
+                    "<b>Đảo lạ:</b> Có những hòn đảo chỉ toàn là mèo hoặc thỏ sinh sống tự do."
+                ]
+            },
+            {
+                id: 14, name: "Hàn Quốc", image: "han-quoc.jpg",
+                facts: [
+                    "<b>Ẩm thực:</b> Kim chi là món ăn quốc hồn quốc túy, có hàng trăm loại khác nhau.",
+                    "<b>Công nghệ:</b> Luôn đứng đầu thế giới về tốc độ kết nối Internet và mạng 5G.",
+                    "<b>Chữ viết:</b> Bảng chữ cái Hangul được vua Sejong sáng tạo ra, rất khoa học và dễ học.",
+                    "<b>Võ thuật:</b> Taekwondo là môn võ truyền thống nổi tiếng toàn cầu và là môn thi Olympic.",
+                    "<b>Tuổi tác:</b> Trước đây, trẻ em sinh ra đã được tính là 1 tuổi (tuổi mụ). "
+                ]
+            },
+            {
+                id: 15, name: "Triều Tiên", image: "trieu-tien.jpg",
+                facts: [
+                    "<b>Bí ẩn:</b> Là quốc gia khép kín nhất thế giới, ít thông tin được lọt ra ngoài.",
+                    "<b>Tàu điện:</b> Hệ thống tàu điện ngầm Bình Nhưỡng nằm sâu nhất thế giới (hơn 100m dưới lòng đất).",
+                    "<b>Lịch:</b> Sử dụng lịch Juche, tính năm bắt đầu từ năm sinh của cố lãnh tụ Kim Nhật Thành.",
+                    "<b>Sân vận động:</b> Sở hữu sân vận động Rungrado 1/5 lớn nhất thế giới với sức chứa 150.000 người.",
+                    "<b>Thời trang:</b> Quần jeans xanh bị coi là biểu tượng văn hóa phương Tây và bị hạn chế."
+                ]
+            },
+            {
+                id: 16, name: "Mông Cổ", image: "mong-co.jpg",
+                facts: [
+                    "<b>Bầu trời:</b> Được gọi là 'Vùng đất của bầu trời xanh' vì có hơn 250 ngày nắng mỗi năm.",
+                    "<b>Động vật:</b> Số lượng ngựa và cừu còn nhiều hơn số lượng người dân sinh sống.",
+                    "<b>Nhà ở:</b> Người dân du mục sống trong những chiếc lều tròn gọi là 'Ger' (hoặc Yurt) dễ di chuyển.",
+                    "<b>Lịch sử:</b> Thành Cát Tư Hãn đã tạo ra đế chế liền kề lớn nhất trong lịch sử nhân loại.",
+                    "<b>Dân cư:</b> Là quốc gia có mật độ dân số thấp nhất thế giới (đất rộng người thưa)."
+                ]
+            },
+            {
+                id: 17, name: "Đài Loan", image: "dai-loan.jpg",
+                facts: [
+                    "<b>Đồ uống:</b> Là quê hương của món trà sữa trân châu nổi tiếng toàn cầu.",
+                    "<b>Chợ đêm:</b> Văn hóa chợ đêm vô cùng sầm uất với hàng ngàn món ăn đường phố hấp dẫn.",
+                    "<b>Tiện lợi:</b> Có mật độ cửa hàng tiện lợi (7-Eleven, FamilyMart) dày đặc nhất thế giới.",
+                    "<b>Kiến trúc:</b> Tòa tháp Taipei 101 từng giữ kỷ lục tòa nhà cao nhất thế giới trong nhiều năm.",
+                    "<b>Rác thải:</b> Xe rác tại đây phát nhạc cổ điển (như Beethoven) để báo hiệu cho người dân."
+                ]
+            },
+            {
+                id: 18, name: "Ấn Độ", image: "an-do.jpg",
+                facts: [
+                    "<b>Kiến trúc:</b> Đền Taj Mahal bằng đá cẩm thạch trắng là biểu tượng bất diệt của tình yêu.",
+                    "<b>Trò chơi:</b> Cờ vua (Saturanga) có nguồn gốc xuất phát từ Ấn Độ cổ đại.",
+                    "<b>Bò:</b> Bò được coi là con vật linh thiêng, thường đi lại tự do trên đường phố.",
+                    "<b>Gia vị:</b> Là quốc gia sản xuất và tiêu thụ các loại gia vị lớn nhất thế giới.",
+                    "<b>Điện ảnh:</b> Ngành công nghiệp phim Bollywood sản xuất số lượng phim hàng năm nhiều hơn Hollywood."
+                ]
+            },
+            {
+                id: 19, name: "Pakistan", image: "pakistan.jpg",
+                facts: [
+                    "<b>Thể thao:</b> Sản xuất hơn một nửa số lượng bóng đá khâu tay trên toàn thế giới.",
+                    "<b>Núi:</b> Sở hữu đỉnh K2, ngọn núi cao thứ hai thế giới và khó chinh phục hơn cả Everest.",
+                    "<b>Trái cây:</b> Xoài là loại trái cây quốc gia và được người dân cực kỳ yêu thích.",
+                    "<b>Đường xá:</b> Đường cao tốc Karakoram là con đường trải nhựa cao nhất quốc tế (kỳ quan thứ 8).",
+                    "<b>Khoáng sản:</b> Mỏ muối Khewra là mỏ muối lớn thứ hai và lâu đời nhất thế giới."
+                ]
+            },
+            {
+                id: 20, name: "Bangladesh", image: "bangladesh.jpg",
+                facts: [
+                    "<b>Sông ngòi:</b> Được gọi là 'Vùng đất của các dòng sông' với hơn 700 con sông chảy qua.",
+                    "<b>Động vật:</b> Rừng ngập mặn Sundarbans là nhà của loài Hổ Bengal hoàng gia quý hiếm.",
+                    "<b>Mùa:</b> Người dân quan niệm một năm có tới 6 mùa (thêm mùa mưa và cuối thu).",
+                    "<b>Trang phục:</b> Ngành công nghiệp may mặc cực kỳ phát triển, xuất khẩu quần áo đi khắp nơi.",
+                    "<b>Dân số:</b> Tuy diện tích nhỏ nhưng dân số rất đông, mật độ cực kỳ cao."
+                ]
+            },
+            {
+                id: 21, name: "Sri Lanka", image: "sri-lanka.jpg",
+                facts: [
+                    "<b>Hình dáng:</b> Được gọi là 'Giọt nước mắt của Ấn Độ' do hình dáng và vị trí địa lý.",
+                    "<b>Gia vị:</b> Là nơi đầu tiên trên thế giới phát hiện và trồng cây quế.",
+                    "<b>Trà:</b> Trà Ceylon nổi tiếng thế giới, những đồi chè xanh mướt là cảnh quan đặc trưng.",
+                    "<b>Giao tiếp:</b> Người dân lắc đầu nhẹ sang hai bên thực ra có nghĩa là 'Đồng ý' hoặc 'Tôi hiểu'.",
+                    "<b>Cây cối:</b> Có cây bồ đề do con người trồng lâu đời nhất thế giới (hơn 2.000 năm tuổi)."
+                ]
+            },
+            {
+                id: 22, name: "Nepal", image: "nepal.jpg",
+                facts: [
+                    "<b>Đỉnh cao:</b> Là nơi có đỉnh Everest - nóc nhà của thế giới (cao 8.848m).",
+                    "<b>Cờ:</b> Là quốc gia duy nhất trên thế giới có quốc kỳ hình tam giác (không phải hình chữ nhật).",
+                    "<b>Tôn giáo:</b> Lumbini tại Nepal là nơi sinh của Đức Phật Thích Ca Mâu Ni.",
+                    "<b>Con người:</b> Người Sherpa nổi tiếng với khả năng leo núi phi thường và dẫn đường giỏi.",
+                    "<b>Huyền thoại:</b> Là nơi lưu truyền truyền thuyết về Người Tuyết Yeti bí ẩn trên dãy Himalaya."
+                ]
+            },
+            {
+                id: 23, name: "Bhutan", image: "bhutan.jpg",
+                facts: [
+                    "<b>Hạnh phúc:</b> Đo lường sự phát triển bằng chỉ số 'Tổng Hạnh phúc Quốc gia' thay vì GDP.",
+                    "<b>Môi trường:</b> Là quốc gia 'Âm Carbon' đầu tiên trên thế giới (hấp thụ nhiều CO2 hơn thải ra).",
+                    "<b>Giao thông:</b> Không có đèn giao thông, cảnh sát điều khiển xe bằng tay múa rất nghệ thuật.",
+                    "<b>Ẩm thực:</b> Người dân ăn ớt như một loại rau chính chứ không phải gia vị.",
+                    "<b>Thuốc lá:</b> Là quốc gia duy nhất trên thế giới cấm hoàn toàn việc buôn bán thuốc lá."
+                ]
+            },
+            {
+                id: 24, name: "Maldives", image: "maldives.jpg",
+                facts: [
+                    "<b>Địa lý:</b> Là quốc gia phẳng nhất và thấp nhất thế giới (chỉ cao hơn mặt biển trung bình 1.5m).",
+                    "<b>Đảo:</b> Được tạo thành từ hơn 1.000 đảo san hô nhỏ xíu giữa Ấn Độ Dương.",
+                    "<b>Chính trị:</b> Từng tổ chức cuộc họp nội các dưới đáy biển để cảnh báo về biến đổi khí hậu.",
+                    "<b>Nghỉ ngơi:</b> Cuối tuần ở đây là thứ Sáu và thứ Bảy, không phải thứ Bảy và Chủ Nhật.",
+                    "<b>Biển:</b> Có những bãi biển phát sáng vào ban đêm do sinh vật phù du (biển sao)."
+                ]
+            },
+            {
+                id: 25, name: "Afghanistan", image: "afghanistan.jpg",
+                facts: [
+                    "<b>Thể thao:</b> Buzkashi là môn thể thao quốc gia, người chơi cưỡi ngựa tranh giành... một con dê.",
+                    "<b>Trái cây:</b> Lựu là loại trái cây nổi tiếng và ngon nhất vùng đất này.",
+                    "<b>Thủ công:</b> Thảm Afghanistan nổi tiếng thế giới về độ tinh xảo và bền đẹp.",
+                    "<b>Năm mới:</b> Người dân đón năm mới (Nowruz) vào ngày đầu tiên của mùa xuân (21/3).",
+                    "<b>Thơ ca:</b> Đêm thứ Năm hàng tuần thường là 'Đêm thơ', mọi người tụ tập đọc thơ cho nhau nghe."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Quốc Gia Châu Á!
+                        </p>
+                    </div>
+                    
+                    <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                       target="_blank"
+                       class="flex items-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100 mt-2">
+                        <i data-lucide="gift" class="w-6 h-6"></i>
+                        Xem tốt sản phẩm cho Mẹ & Bé 
+                    </a>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
