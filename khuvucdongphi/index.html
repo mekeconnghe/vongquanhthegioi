@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Các Quốc Gia Châu Phi</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Các khu vực Đông Phi" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/73/d5/e9/73d5e948ddea9f74f3af2fa9a8904d0f.jpg" />
+    <meta property="og:url" content="https://mekeconnghe.github.io/vongquanhthegioi/khuvucdongphi/" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Các Khu Vực Đông Phi
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/18</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Burundi", image: "burundi.jpg",
+                facts: [
+                    "<b>Biệt danh:</b> Được mệnh danh là 'Trái tim của châu Phi' do hình dáng lãnh thổ giống hình trái tim.",
+                    "<b>Hồ lớn:</b> Nằm bên cạnh hồ Tanganyika, hồ nước ngọt dài nhất và sâu thứ hai thế giới.",
+                    "<b>Văn hóa:</b> Tiếng trống Hoàng gia Burundi là di sản văn hóa phi vật thể được UNESCO công nhận.",
+                    "<b>Cá sấu:</b> Đây là nơi sinh sống của Gustave, con cá sấu khổng lồ huyền thoại dài hơn 6 mét.",
+                    "<b>Động vật:</b> Bò được coi là biểu tượng của sự giàu có và địa vị trong xã hội truyền thống."
+                ]
+            },
+            {
+                id: 2, name: "Comoros", image: "comoros.jpg",
+                facts: [
+                    "<b>Hương thơm:</b> Được gọi là 'Hòn đảo nước hoa' vì trồng rất nhiều hoa ngọc lan tây (Ylang-ylang) để làm nước hoa.",
+                    "<b>Cá hóa thạch:</b> Là nơi tìm thấy cá vây tay (Coelacanth) còn sống, loài cá ngỡ đã tuyệt chủng từ thời khủng long.",
+                    "<b>Núi lửa:</b> Ngọn núi Karthala tại đây là một trong những núi lửa hoạt động mạnh nhất thế giới.",
+                    "<b>Ý nghĩa tên:</b> Tên gọi bắt nguồn từ tiếng Ả Rập 'Qamar' có nghĩa là 'Mặt trăng', hình trăng khuyết cũng có trên cờ.",
+                    "<b>Địa lý:</b> Là một quốc đảo nhỏ bé nằm giữa Madagascar và lục địa châu Phi."
+                ]
+            },
+            {
+                id: 3, name: "Djibouti", image: "djibouti.jpg",
+                facts: [
+                    "<b>Hồ nước:</b> Hồ Assal tại đây là điểm thấp nhất châu Phi và có độ mặn gấp 10 lần nước biển.",
+                    "<b>Đại dương:</b> Là một trong những nơi tốt nhất thế giới để bơi cùng Cá mập voi khổng lồ hiền lành.",
+                    "<b>Địa chất:</b> Cảnh quan tại Lac Abbé với các ống khói đá vôi trông giống như một hành tinh khác.",
+                    "<b>Vị trí:</b> Nằm ở vị trí chiến lược ngay cửa ngõ Biển Đỏ nên có nhiều căn cứ quân sự quốc tế.",
+                    "<b>Giao thông:</b> Không có dòng sông nào chảy quanh năm, người dân chủ yếu dùng nước ngầm."
+                ]
+            },
+            {
+                id: 4, name: "Eritrea", image: "eritrea.jpg",
+                facts: [
+                    "<b>Kiến trúc:</b> Thủ đô Asmara được UNESCO công nhận là di sản thế giới với kiến trúc Art Deco tuyệt đẹp.",
+                    "<b>Tên gọi:</b> Tên đất nước bắt nguồn từ tiếng Hy Lạp có nghĩa là 'Biển Đỏ'.",
+                    "<b>Thể thao:</b> Đua xe đạp là môn thể thao vua tại đây, di sản từ thời thuộc địa Ý.",
+                    "<b>Biển đảo:</b> Quần đảo Dahlak gồm hơn 100 đảo nhỏ là thiên đường lặn biển hoang sơ.",
+                    "<b>Nghĩa địa:</b> Có một 'nghĩa địa xe tăng' nổi tiếng ở thủ đô, lưu giữ tàn tích của chiến tranh."
+                ]
+            },
+            {
+                id: 5, name: "Ethiopia", image: "ethiopia.jpg",
+                facts: [
+                    "<b>Lịch sử:</b> Là quốc gia châu Phi duy nhất chưa bao giờ bị thực dân phương Tây đô hộ hoàn toàn.",
+                    "<b>Cà phê:</b> Được coi là quê hương, nơi khởi nguồn của cây cà phê (từ vùng Kaffa).",
+                    "<b>Lịch riêng:</b> Ethiopia sử dụng loại lịch riêng có 13 tháng trong một năm.",
+                    "<b>Khảo cổ:</b> Là nơi phát hiện ra bộ xương 'Lucy' nổi tiếng, tổ tiên cổ xưa của loài người.",
+                    "<b>Kỳ quan:</b> Lalibela nổi tiếng với 11 nhà thờ được tạc nguyên khối sâu vào trong lòng đất đá."
+                ]
+            },
+            {
+                id: 6, name: "Kenya", image: "kenya.jpg",
+                facts: [
+                    "<b>Safari:</b> Là điểm đến nổi tiếng nhất thế giới để ngắm 'Big Five' (5 loài thú lớn: Sư tử, Voi, Trâu, Báo, Tê giác).",
+                    "<b>Thể thao:</b> Người dân tộc Kalenjin ở đây nổi tiếng toàn cầu với khả năng chạy đường dài siêu đẳng.",
+                    "<b>Địa lý:</b> Đường xích đạo chạy ngang qua đất nước, chia đôi lãnh thổ.",
+                    "<b>Văn hóa:</b> Bộ tộc Maasai với trang phục đỏ rực rỡ và điệu nhảy nhảy cao là biểu tượng văn hóa.",
+                    "<b>Thiên nhiên:</b> Cuộc đại di cư của hàng triệu linh dương đầu bò qua sông Mara là kỳ quan thiên nhiên."
+                ]
+            },
+            {
+                id: 7, name: "Madagascar", image: "madagascar.jpg",
+                facts: [
+                    "<b>Độc đáo:</b> Khoảng 90% động thực vật ở đây không tìm thấy ở bất kỳ nơi nào khác trên Trái đất.",
+                    "<b>Vượn cáo:</b> Là ngôi nhà duy nhất trong tự nhiên của loài Vượn cáo (Lemur) đáng yêu.",
+                    "<b>Cây cối:</b> Đại lộ Baobab nổi tiếng với những cây thân to khổng lồ trông như bị trồng ngược rễ lên trời.",
+                    "<b>Kích thước:</b> Là hòn đảo lớn thứ 4 trên thế giới (sau Greenland, New Guinea và Borneo).",
+                    "<b>Hương liệu:</b> Là quốc gia sản xuất Vani (Vanilla) lớn nhất thế giới."
+                ]
+            },
+            {
+                id: 8, name: "Malawi", image: "malawi.jpg",
+                facts: [
+                    "<b>Hồ nước:</b> Hồ Malawi chiếm 1/3 diện tích đất nước và là nơi sinh sống của hơn 1000 loài cá Cichlid rực rỡ.",
+                    "<b>Biệt danh:</b> Được gọi là 'Trái tim ấm áp của châu Phi' nhờ sự thân thiện tuyệt vời của người dân.",
+                    "<b>Hồ Lịch:</b> Hồ Malawi đôi khi được gọi là 'Hồ Lịch' vì dài 365 dặm và rộng 52 dặm.",
+                    "<b>Trà:</b> Là nước đầu tiên ở châu Phi trồng trà thương mại, với những đồi chè xanh mướt.",
+                    "<b>Núi non:</b> Núi Mulanje là một khối đá granite khổng lồ mọc lên giữa đồng bằng."
+                ]
+            },
+            {
+                id: 9, name: "Mauritius", image: "mauritius.jpg",
+                facts: [
+                    "<b>Chim Dodo:</b> Từng là nơi sinh sống duy nhất của chim Dodo trước khi chúng bị tuyệt chủng vào thế kỷ 17.",
+                    "<b>Ảo ảnh:</b> Có một 'thác nước dưới biển' tuyệt đẹp nhìn từ trên cao (thực ra là ảo ảnh do cát chảy).",
+                    "<b>Đất 7 màu:</b> Vùng đất Chamarel có những đồi cát tự nhiên với 7 màu sắc đan xen kỳ ảo.",
+                    "<b>Lời khen:</b> Nhà văn Mark Twain từng nói: 'Chúa tạo ra Mauritius trước, rồi mới tạo ra Thiên đường theo mẫu đó'.",
+                    "<b>Đa dạng:</b> Là quốc gia Ấn Độ giáo duy nhất ở châu Phi (tôn giáo chiếm đa số)."
+                ]
+            },
+            {
+                id: 10, name: "Mozambique", image: "mozambique.jpg",
+                facts: [
+                    "<b>Quốc kỳ:</b> Là quốc gia duy nhất trên thế giới có hình khẩu súng AK-47 trên quốc kỳ (biểu tượng bảo vệ).",
+                    "<b>Bờ biển:</b> Sở hữu đường bờ biển Ấn Độ Dương tuyệt đẹp dài hơn 2.500 km.",
+                    "<b>Ẩm thực:</b> Nổi tiếng với món gà nướng Piri-piri cay nồng hấp dẫn.",
+                    "<b>Hồ nước:</b> Có một phần của hồ Malawi (tại đây gọi là hồ Niassa) và hồ nhân tạo Cahora Bassa khổng lồ.",
+                    "<b>Bảo tồn:</b> Công viên quốc gia Gorongosa đang hồi sinh mạnh mẽ và là câu chuyện thành công về bảo tồn."
+                ]
+            },
+            {
+                id: 11, name: "Rwanda", image: "rwanda.jpg",
+                facts: [
+                    "<b>Biệt danh:</b> Được gọi là 'Vùng đất của ngàn ngọn đồi' vì địa hình đồi núi trập trùng xanh mướt.",
+                    "<b>Khỉ đột:</b> Là một trong số ít nơi trên thế giới du khách có thể ngắm khỉ đột núi trong tự nhiên.",
+                    "<b>Sạch sẽ:</b> Thủ đô Kigali được coi là thành phố sạch nhất châu Phi; túi nilon bị cấm hoàn toàn.",
+                    "<b>Cộng đồng:</b> Ngày thứ 7 cuối tháng là ngày 'Umuganda', mọi người dân cùng nhau làm vệ sinh công cộng.",
+                    "<b>Phụ nữ:</b> Là quốc gia có tỷ lệ nữ giới trong quốc hội cao nhất thế giới."
+                ]
+            },
+            {
+                id: 12, name: "Seychelles", image: "seychelles.jpg",
+                facts: [
+                    "<b>Hạt giống:</b> Quê hương của hạt Coco de Mer, hạt giống thực vật lớn và nặng nhất thế giới (hình dáng rất lạ).",
+                    "<b>Rùa:</b> Là nơi sinh sống của rùa khổng lồ Aldabra, một trong những loài rùa lớn nhất hành tinh.",
+                    "<b>Địa chất:</b> Là những hòn đảo duy nhất giữa đại dương được tạo thành từ đá granite (đá hoa cương).",
+                    "<b>Huyền thoại:</b> Thung lũng Vallee de Mai từng được tin là Vườn Địa Đàng trong truyền thuyết.",
+                    "<b>Dân số:</b> Là quốc gia có dân số ít nhất châu Phi (chưa đến 100.000 người)."
+                ]
+            },
+            {
+                id: 13, name: "Somalia", image: "somalia.jpg",
+                facts: [
+                    "<b>Vị trí:</b> Nằm ở 'Sừng châu Phi', mũi đất nhọn vươn ra biển Ấn Độ Dương.",
+                    "<b>Bờ biển:</b> Có đường bờ biển dài nhất trong số các quốc gia trên lục địa châu Phi.",
+                    "<b>Lạc đà:</b> Là quốc gia có số lượng lạc đà lớn nhất thế giới, lạc đà cung cấp sữa và thịt chính.",
+                    "<b>Hương liệu:</b> Vùng đất này nổi tiếng từ cổ đại là nguồn cung cấp trầm hương và nhũ hương quý giá.",
+                    "<b>Nghệ thuật:</b> Hang động Laas Geel chứa những bức tranh đá tuyệt đẹp có niên đại hàng nghìn năm."
+                ]
+            },
+            {
+                id: 14, name: "Nam Sudan", image: "nam-sudan.jpg",
+                facts: [
+                    "<b>Tuổi đời:</b> Là quốc gia trẻ nhất thế giới, mới chính thức giành độc lập vào năm 2011.",
+                    "<b>Chiều cao:</b> Người dân bộ tộc Dinka và Nuer ở đây nổi tiếng là những người cao nhất châu Phi.",
+                    "<b>Thiên nhiên:</b> Có vùng đầm lầy Sudd rộng lớn, một trong những vùng đất ngập nước lớn nhất thế giới.",
+                    "<b>Dòng sông:</b> Sông Nile Trắng chảy qua nước này, tạo nên sự sống cho vùng đất khô cằn.",
+                    "<b>Di cư:</b> Cũng là nơi diễn ra cuộc di cư khổng lồ của loài linh dương Kob tai trắng."
+                ]
+            },
+            {
+                id: 15, name: "Tanzania", image: "tanzania.jpg",
+                facts: [
+                    "<b>Đỉnh cao:</b> Sở hữu núi Kilimanjaro, ngọn núi cao nhất châu Phi và có tuyết phủ quanh năm ở đỉnh.",
+                    "<b>Đảo gia vị:</b> Quần đảo Zanzibar nổi tiếng với các loại gia vị thơm nồng và những bãi biển tuyệt đẹp.",
+                    "<b>Hồ lớn:</b> Một phần của Hồ Victoria, hồ nước ngọt lớn nhất châu Phi, nằm trên lãnh thổ nước này.",
+                    "<b>Miệng núi lửa:</b> Ngorongoro là miệng núi lửa cạn nguyên vẹn lớn nhất thế giới, như một sở thú tự nhiên.",
+                    "<b>Âm nhạc:</b> Freddie Mercury, ca sĩ huyền thoại của ban nhạc Queen, được sinh ra tại Zanzibar."
+                ]
+            },
+            {
+                id: 16, name: "Uganda", image: "uganda.jpg",
+                facts: [
+                    "<b>Danh hiệu:</b> Được Winston Churchill gọi là 'Hòn ngọc của châu Phi' vì thiên nhiên tươi đẹp.",
+                    "<b>Linh trưởng:</b> Nơi tuyệt vời để ngắm cả Tinh tinh và Khỉ đột núi trong rừng rậm.",
+                    "<b>Nguồn nước:</b> Là nơi khởi nguồn chính của sông Nile (từ hồ Victoria chảy ra).",
+                    "<b>Ẩm thực:</b> Món ăn đường phố nổi tiếng nhất tên là 'Rolex' (trứng cuộn trong bánh chapati).",
+                    "<b>Chim chóc:</b> Là nơi sinh sống của loài cò mỏ giày (Shoebill) với vẻ ngoài thời tiền sử kỳ lạ."
+                ]
+            },
+            {
+                id: 17, name: "Zambia", image: "zambia.jpg",
+                facts: [
+                    "<b>Thác nước:</b> Đồng sở hữu thác Victoria hùng vĩ (tên bản địa là 'Khói sấm rền') với Zimbabwe.",
+                    "<b>Sông ngòi:</b> Tên nước được đặt theo sông Zambezi, con sông lớn thứ 4 châu Phi.",
+                    "<b>Du lịch:</b> Được coi là nơi khai sinh ra loại hình 'Safari đi bộ' (Walking Safari).",
+                    "<b>Khoáng sản:</b> Là một trong những nước sản xuất đồng lớn nhất thế giới.",
+                    "<b>Hồ nước:</b> Hồ Kariba tại đây là hồ chứa nước nhân tạo lớn nhất thế giới theo thể tích."
+                ]
+            },
+            {
+                id: 18, name: "Zimbabwe", image: "zimbabwe.jpg",
+                facts: [
+                    "<b>Di tích:</b> Khu di tích Đại Zimbabwe là tàn tích thành phố đá cổ đại lớn nhất nam sa mạc Sahara.",
+                    "<b>Kỳ quan:</b> Thác Victoria tại đây rộng hơn 1.7km, tạo nên màn nước khổng lồ.",
+                    "<b>Đá thăng bằng:</b> Nổi tiếng với những tảng đá xếp chồng lên nhau một cách thăng bằng kỳ lạ (Balancing Rocks).",
+                    "<b>Tiền tệ:</b> Từng in tờ tiền có mệnh giá 100 nghìn tỷ đô la do lạm phát lịch sử.",
+                    "<b>Biểu tượng:</b> Chim Zimbabwe (tạc từ đá xà phòng) là biểu tượng quốc gia xuất hiện trên cờ và tiền."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Quốc Gia Châu Phi!
+                        </p>
+                    </div>
+                    
+                    <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                       target="_blank"
+                       class="flex items-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100 mt-2">
+                        <i data-lucide="gift" class="w-6 h-6"></i>
+                        Xem tốt sản phẩm cho Mẹ & Bé 
+                    </a>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
