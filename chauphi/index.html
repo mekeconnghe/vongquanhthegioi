@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Các Quốc Gia Châu Phi</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Các Quốc Gia Châu Phi" />
+    <meta property="og:description" content="Tìm hiểu về các quốc gia Bắc và Tây Phi" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/ae/66/bf/ae66bfa64fcbab1b6d7ea3fcf3d94728.jpg" />
+    <meta property="og:url" content="https://mekeconnghe.github.io/khamphathegioi/" />
+    <meta property="og:type" content="website" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Các Quốc Gia Châu Phi
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/22</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 5%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Algeria", image: "algeria.jpg",
+                facts: [
+                    "<b>Diện tích:</b> Là quốc gia có diện tích lớn nhất châu Phi và lớn thứ 10 trên thế giới.",
+                    "<b>Sahara:</b> Khoảng 80% diện tích lãnh thổ bị bao phủ bởi sa mạc Sahara nóng bỏng.",
+                    "<b>Thủ đô:</b> Algiers được gọi là 'Thành phố trắng' với những ngôi nhà quét vôi trắng lấp lánh bên bờ biển.",
+                    "<b>Động vật:</b> Loài Cáo Fennec với đôi tai to đặc trưng là biểu tượng quốc gia (biệt danh của đội tuyển bóng đá).",
+                    "<b>Di sản:</b> Sở hữu 7 di sản thế giới UNESCO, bao gồm cả tàn tích La Mã Timgad cổ đại."
+                ]
+            },
+            {
+                id: 2, name: "Ai Cập", image: "ai-cap.jpg",
+                facts: [
+                    "<b>Kỳ quan:</b> Nổi tiếng với Đại Kim tự tháp Giza, kỳ quan duy nhất của thế giới cổ đại còn tồn tại.",
+                    "<b>Sông ngòi:</b> Sông Nile chảy qua đây được coi là dòng sông dài nhất thế giới, cội nguồn của sự sống.",
+                    "<b>Lịch sử:</b> Là cái nôi của một trong những nền văn minh lâu đời và vĩ đại nhất lịch sử nhân loại.",
+                    "<b>Địa lý:</b> Có kênh đào Suez chiến lược nối liền Địa Trung Hải với Biển Đỏ.",
+                    "<b>Văn hóa:</b> Người Ai Cập cổ đại đã phát minh ra giấy (từ cây Papyrus), mực đen và lịch 365 ngày."
+                ]
+            },
+            {
+                id: 3, name: "Libya", image: "libya.jpg",
+                facts: [
+                    "<b>Tài nguyên:</b> Là quốc gia có trữ lượng dầu mỏ lớn nhất châu Phi và nằm trong top đầu thế giới.",
+                    "<b>Khảo cổ:</b> Thành phố cổ Leptis Magna tại đây được xem là di tích La Mã tráng lệ nhất còn lại.",
+                    "<b>Địa hình:</b> Phần lớn diện tích là sa mạc khô cằn, nhưng có bờ biển Địa Trung Hải dài nhất châu Phi.",
+                    "<b>Khí hậu:</b> Từng ghi nhận nhiệt độ kỷ lục thế giới lên tới 58°C vào năm 1922.",
+                    "<b>Ẩm thực:</b> Món ăn truyền thống Couscous và trà bạc hà rất phổ biến trong văn hóa người dân."
+                ]
+            },
+            {
+                id: 4, name: "Ma-rốc (Morocco)", image: "ma-roc.jpg",
+                facts: [
+                    "<b>Vị trí:</b> Nằm ở góc Tây Bắc châu Phi, cách châu Âu chỉ khoảng 14km qua eo biển Gibraltar.",
+                    "<b>Thành phố Đỏ:</b> Marrakech nổi tiếng với biệt danh 'Thành phố Đỏ' do màu sắc của các bức tường thành.",
+                    "<b>Đặc sản:</b> Quê hương của cây Argan, loại cây cho dầu quý giá được dùng trong mỹ phẩm và ẩm thực.",
+                    "<b>Điện ảnh:</b> Thành phố Ouarzazate là phim trường của nhiều bom tấn như 'Gladiator' hay 'Trò chơi vương quyền'.",
+                    "<b>Văn hóa:</b> Nổi tiếng với những khu chợ (Souk) đầy màu sắc và hương thơm của các loại gia vị."
+                ]
+            },
+            {
+                id: 5, name: "Sudan", image: "sudan.jpg",
+                facts: [
+                    "<b>Kim tự tháp:</b> Có nhiều kim tự tháp hơn cả Ai Cập (hơn 200 cái), dù kích thước nhỏ và dốc hơn.",
+                    "<b>Sông Nile:</b> Là nơi hai nhánh sông Nile Trắng và Nile Xanh gặp nhau tại thủ đô Khartoum.",
+                    "<b>Lịch sử:</b> Từng là trung tâm của vương quốc Kush cổ đại hùng mạnh.",
+                    "<b>Chia tách:</b> Năm 2011, Nam Sudan tách ra, làm thay đổi đáng kể bản đồ địa lý của quốc gia này.",
+                    "<b>Văn hóa:</b> Nổi tiếng với lòng hiếu khách tuyệt vời và trà Hibiscus (Karkade) đỏ thắm."
+                ]
+            },
+            {
+                id: 6, name: "Tunisia", image: "tunisia.jpg",
+                facts: [
+                    "<b>Cực Bắc:</b> Là quốc gia nằm ở điểm cực Bắc của lục địa châu Phi.",
+                    "<b>Lịch sử:</b> Nơi tọa lạc của thành Carthage huyền thoại, đối thủ lớn nhất của đế chế La Mã cổ đại.",
+                    "<b>Điện ảnh:</b> Ngôi làng Matmata với những ngôi nhà trong hang là bối cảnh hành tinh Tatooine trong 'Star Wars'.",
+                    "<b>Kiến trúc:</b> Thị trấn Sidi Bou Said nổi tiếng với những ngôi nhà màu trắng và cửa màu xanh dương tuyệt đẹp.",
+                    "<b>Xã hội:</b> Là nơi khởi nguồn của phong trào 'Mùa xuân Ả Rập' vào năm 2010."
+                ]
+            },
+            {
+                id: 7, name: "Benin", image: "benin.jpg",
+                facts: [
+                    "<b>Tôn giáo:</b> Được coi là cái nôi của tôn giáo Voodoo (Vodu) trên thế giới.",
+                    "<b>Lịch sử:</b> Từng là Vương quốc Dahomey hùng mạnh với đội quân nữ chiến binh Amazon nổi tiếng.",
+                    "<b>Độc đáo:</b> Ngôi làng Ganvie được mệnh danh là 'Venice của châu Phi' với 30.000 người sống trên nhà sàn giữa hồ.",
+                    "<b>Thiên nhiên:</b> Vườn quốc gia Pendjari là một trong những nơi tốt nhất Tây Phi để ngắm sư tử và voi.",
+                    "<b>Tên gọi:</b> Từng được gọi là 'Bờ biển Nô lệ' trong quá khứ do lịch sử buôn bán nô lệ sầm uất."
+                ]
+            },
+            {
+                id: 8, name: "Burkina Faso", image: "burkina-faso.jpg",
+                facts: [
+                    "<b>Ý nghĩa tên:</b> Tên nước có nghĩa là 'Vùng đất của những người liêm chính' (hoặc người lương thiện).",
+                    "<b>Thủ đô:</b> Ouagadougou là thủ đô, thường được gọi tắt thân mật là 'Ouaga'.",
+                    "<b>Tín ngưỡng:</b> Tại thị trấn Sabou, cá sấu được coi là linh vật thiêng liêng và người dân có thể cưỡi lên chúng.",
+                    "<b>Kinh tế:</b> Là một trong những nhà sản xuất bông vải lớn nhất châu Phi.",
+                    "<b>Nghệ thuật:</b> Liên hoan phim FESPACO tại đây là sự kiện điện ảnh lớn nhất châu Phi."
+                ]
+            },
+            {
+                id: 9, name: "Cabo Verde", image: "cabo-verde.jpg",
+                facts: [
+                    "<b>Địa lý:</b> Là một quốc đảo gồm 10 đảo núi lửa nằm giữa Đại Tây Dương.",
+                    "<b>Tên gọi:</b> Tên nước có nghĩa là 'Mũi Xanh' trong tiếng Bồ Đào Nha, dù thực tế đảo khá khô cằn.",
+                    "<b>Âm nhạc:</b> Quê hương của dòng nhạc Morna buồn da diết và nữ danh ca huyền thoại Cesária Évora.",
+                    "<b>Dân số:</b> Người dân chủ yếu là con lai giữa người Bồ Đào Nha và người Phi (Creole).",
+                    "<b>Du lịch:</b> Nổi tiếng với những bãi biển tuyệt đẹp và ngọn núi lửa Fogo vẫn còn hoạt động."
+                ]
+            },
+            {
+                id: 10, name: "Bờ Biển Ngà", image: "bo-bien-nga.jpg",
+                facts: [
+                    "<b>Tên gọi:</b> Tên quốc tế là Côte d'Ivoire. Tên gọi xuất phát từ việc buôn bán ngà voi trong quá khứ.",
+                    "<b>Nông nghiệp:</b> Là quốc gia sản xuất và xuất khẩu hạt ca cao lớn nhất thế giới (nguyên liệu làm sô-cô-la).",
+                    "<b>Kiến trúc:</b> Nhà thờ Đức Bà Hòa bình tại Yamoussoukro là nhà thờ lớn nhất thế giới, vượt qua cả Vatican.",
+                    "<b>Bóng đá:</b> Sản sinh ra huyền thoại bóng đá Didier Drogba, người hùng dân tộc.",
+                    "<b>Thủ đô:</b> Có hai thủ đô: Yamoussoukro (chính trị) và Abidjan (kinh tế, được ví là Paris của châu Phi)."
+                ]
+            },
+            {
+                id: 11, name: "Gambia", image: "gambia.jpg",
+                facts: [
+                    "<b>Kích thước:</b> Là quốc gia nhỏ nhất trên lục địa châu Phi.",
+                    "<b>Địa lý:</b> Lãnh thổ chạy dọc theo hai bờ sông Gambia và bị bao quanh hoàn toàn bởi nước Senegal.",
+                    "<b>Biệt danh:</b> Được gọi là 'Bờ biển mỉm cười của châu Phi' nhờ sự thân thiện của người dân.",
+                    "<b>Thiên nhiên:</b> Thiên đường của những người yêu chim với hơn 500 loài chim khác nhau.",
+                    "<b>Văn hóa:</b> Là bối cảnh gốc của cuốn tiểu thuyết nổi tiếng 'Roots' (Cội rễ) của Alex Haley."
+                ]
+            },
+            {
+                id: 12, name: "Ghana", image: "ghana.jpg",
+                facts: [
+                    "<b>Lịch sử:</b> Là quốc gia châu Phi thuộc địa đầu tiên giành được độc lập (năm 1957).",
+                    "<b>Tên cũ:</b> Từng được gọi là 'Bờ biển Vàng' (Gold Coast) do trữ lượng vàng phong phú.",
+                    "<b>Hồ nước:</b> Hồ Volta tại đây là hồ nhân tạo lớn nhất thế giới tính theo diện tích bề mặt.",
+                    "<b>Trang phục:</b> Vải Kente sặc sỡ với các họa tiết hình học là biểu tượng văn hóa nổi tiếng toàn cầu.",
+                    "<b>Vũ trụ:</b> Có chương trình không gian riêng và đã phóng vệ tinh lên quỹ đạo."
+                ]
+            },
+            {
+                id: 13, name: "Guinea", image: "guinea.jpg",
+                facts: [
+                    "<b>Tài nguyên:</b> Sở hữu trữ lượng Bô-xít (quặng nhôm) lớn nhất thế giới.",
+                    "<b>Thủy văn:</b> Được ví là 'Tháp nước của Tây Phi' vì là nơi bắt nguồn của 22 con sông lớn (như sông Niger, Senegal).",
+                    "<b>Núi non:</b> Khu bảo tồn thiên nhiên Núi Nimba là Di sản thế giới UNESCO cấm du khách để bảo vệ.",
+                    "<b>Âm nhạc:</b> Nhạc cụ Djembe (trống vỗ tay) rất phổ biến và là linh hồn trong các lễ hội.",
+                    "<b>Thủ đô:</b> Conakry là một thành phố cảng sầm uất nằm trên bán đảo Kaloum."
+                ]
+            },
+            {
+                id: 14, name: "Guinea-Bissau", image: "guinea-bissau.jpg",
+                facts: [
+                    "<b>Quần đảo:</b> Quần đảo Bijagós gồm 88 đảo là khu dự trữ sinh quyển thế giới tuyệt đẹp.",
+                    "<b>Động vật:</b> Nổi tiếng với loài hà mã nước mặn hiếm gặp sống tại các đảo ven biển.",
+                    "<b>Lịch sử:</b> Từng là thuộc địa của Bồ Đào Nha và chịu ảnh hưởng kiến trúc sâu sắc.",
+                    "<b>Kinh tế:</b> Hạt điều là 'vàng trắng' của quốc gia này, chiếm phần lớn kim ngạch xuất khẩu.",
+                    "<b>Văn hóa:</b> Lễ hội Carnival ở đây rất sôi động, pha trộn giữa văn hóa Bồ Đào Nha và bản địa."
+                ]
+            },
+            {
+                id: 15, name: "Liberia", image: "liberia.jpg",
+                facts: [
+                    "<b>Nguồn gốc:</b> Được thành lập bởi những người nô lệ được giải phóng từ Hoa Kỳ quay về châu Phi.",
+                    "<b>Độc lập:</b> Là quốc gia cộng hòa lâu đời nhất châu Phi, chưa từng bị thực dân đô hộ.",
+                    "<b>Quốc kỳ:</b> Cờ của Liberia rất giống cờ Mỹ, chỉ khác là có 1 ngôi sao thay vì 50.",
+                    "<b>Kinh tế:</b> Có đội tàu buôn đăng ký dưới cờ nước này lớn thứ hai thế giới (cờ thuận tiện).",
+                    "<b>Cao su:</b> Đồn điền cao su Firestone tại đây từng là đồn điền cao su lớn nhất thế giới."
+                ]
+            },
+            {
+                id: 16, name: "Mali", image: "mali.jpg",
+                facts: [
+                    "<b>Huyền thoại:</b> Thành phố Timbuktu từng là trung tâm học thuật và thương mại vàng nổi tiếng thời trung cổ.",
+                    "<b>Vua chúa:</b> Vua Mansa Musa của đế chế Mali được coi là người giàu nhất lịch sử nhân loại.",
+                    "<b>Kiến trúc:</b> Đại giáo đường Djenne là công trình bằng bùn (đất sét) lớn nhất thế giới.",
+                    "<b>Âm nhạc:</b> Được coi là cái nôi của dòng nhạc Blues sa mạc (Tuareg blues).",
+                    "<b>Địa lý:</b> Có 4 khu vực Di sản Thế giới được UNESCO công nhận."
+                ]
+            },
+            {
+                id: 17, name: "Mauritania", image: "mauritania.jpg",
+                facts: [
+                    "<b>Kỳ quan:</b> Sở hữu 'Con mắt châu Phi' (Cấu trúc Richat) khổng lồ có thể nhìn thấy từ vũ trụ.",
+                    "<b>Giao thông:</b> Có đoàn tàu chở quặng sắt dài nhất thế giới, có thể dài tới 3km.",
+                    "<b>Địa hình:</b> Khoảng 90% diện tích đất nước là sa mạc, dân cư sống tập trung ở phía Nam.",
+                    "<b>Ẩm thực:</b> Trà bạc hà được uống theo nghi thức đặc biệt: 3 ly (đắng như đời, ngọt như tình, nhẹ như cái chết).",
+                    "<b>Xã hội:</b> Là quốc gia cuối cùng trên thế giới chính thức xóa bỏ chế độ nô lệ (năm 1981)."
+                ]
+            },
+            {
+                id: 18, name: "Niger", image: "niger.jpg",
+                facts: [
+                    "<b>Tên gọi:</b> Đặt theo tên sông Niger chảy qua đất nước (đừng nhầm với Nigeria).",
+                    "<b>Khủng long:</b> Sa mạc tại đây là nơi tìm thấy nhiều hóa thạch khủng long quý giá.",
+                    "<b>Tài nguyên:</b> Là một trong những nước khai thác Uranium lớn nhất thế giới.",
+                    "<b>Văn hóa:</b> Lễ hội Gerewol của bộ tộc Wodaabe là nơi nam giới trang điểm để thi sắc đẹp.",
+                    "<b>Cây Tenere:</b> Từng có 'cây cô đơn nhất thế giới' mọc giữa sa mạc trước khi bị xe tải đâm đổ."
+                ]
+            },
+            {
+                id: 19, name: "Nigeria", image: "nigeria.jpg",
+                facts: [
+                    "<b>Dân số:</b> Là quốc gia đông dân nhất châu Phi và có nền kinh tế lớn hàng đầu lục địa.",
+                    "<b>Điện ảnh:</b> Ngành công nghiệp phim 'Nollywood' sản xuất số lượng phim đứng thứ 2 thế giới (sau Bollywood).",
+                    "<b>Đa dạng:</b> Có hơn 250 nhóm sắc tộc và hơn 500 ngôn ngữ khác nhau.",
+                    "<b>Thành phố:</b> Lagos là một trong những siêu đô thị phát triển nhanh nhất thế giới.",
+                    "<b>Sinh thái:</b> Là nơi sinh sống của loài khỉ Drill cực hiếm và loài bướm xinh đẹp."
+                ]
+            },
+            {
+                id: 20, name: "Senegal", image: "senegal.jpg",
+                facts: [
+                    "<b>Thiên nhiên:</b> Hồ Retba (Hồ Hồng) nổi tiếng với màu nước hồng rực rỡ do tảo và nồng độ muối cao.",
+                    "<b>Biểu tượng:</b> Tượng đài Phục hưng Châu Phi tại Dakar cao hơn cả Tượng Nữ thần Tự do.",
+                    "<b>Lịch sử:</b> Đảo Gorée từng là trung tâm buôn bán nô lệ lớn nhất bờ biển Tây Phi.",
+                    "<b>Thể thao:</b> Đấu vật truyền thống (Laamb) là môn thể thao vua, còn hâm mộ hơn cả bóng đá.",
+                    "<b>Địa lý:</b> Là điểm cực Tây của lục địa châu Phi."
+                ]
+            },
+            {
+                id: 21, name: "Sierra Leone", image: "sierra-leone.jpg",
+                facts: [
+                    "<b>Tên gọi:</b> Có nghĩa là 'Dãy núi Sư tử' trong tiếng Bồ Đào Nha.",
+                    "<b>Khoáng sản:</b> Nổi tiếng với những mỏ kim cương trữ lượng lớn (từng gắn với khái niệm 'Kim cương máu').",
+                    "<b>Thủ đô:</b> Freetown có bãi biển đẹp và Cây Bông Gòn khổng lồ 500 tuổi là biểu tượng tự do.",
+                    "<b>Động vật:</b> Là nơi trú ẩn quan trọng của loài tinh tinh Tây Phi đang nguy cấp.",
+                    "<b>Hồi sinh:</b> Đang phát triển mạnh mẽ về du lịch sinh thái sau những biến động lịch sử."
+                ]
+            },
+            {
+                id: 22, name: "Togo", image: "togo.jpg",
+                facts: [
+                    "<b>Hình dáng:</b> Lãnh thổ hẹp và dài, bờ biển chỉ dài khoảng 56km nhưng rất đẹp.",
+                    "<b>Văn hóa:</b> Chợ Akodessewa tại thủ đô Lome là chợ bùa chú Voodoo lớn nhất thế giới.",
+                    "<b>Thủ đô:</b> Lome được mệnh danh là 'Paris của Tây Phi' với những đại lộ rộng rợp bóng cây.",
+                    "<b>Du lịch:</b> Hồ Togo là điểm đến phổ biến cho các môn thể thao dưới nước.",
+                    "<b>Xã hội:</b> Người dân rất coi trọng lễ nghi chào hỏi và tôn trọng người lớn tuổi."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Quốc Gia Châu Phi!
+                        </p>
+                    </div>
+                    
+                    <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                       target="_blank"
+                       class="flex items-center gap-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-6 py-4 rounded-xl font-bold text-lg shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100 mt-2">
+                        <i data-lucide="gift" class="w-6 h-6"></i>
+                        Xem tốt sản phẩm cho Mẹ & Bé 
+                    </a>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
