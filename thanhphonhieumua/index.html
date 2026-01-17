@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Những Nơi Mưa Nhiều Nhất Thế Giới</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Top 10 Thành Phố Nhiều Mưa Nhất Thế Giới" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/1b/28/da/1b28dad9e7020caeff20ebbb5b6aa376.jpg" />
+    <meta property="og:type" content="https://mekeconnghe.github.io/vongquanhthegioi/thanhphonhieumua/" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-slate-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8 text-cyan-500"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-slate-600 uppercase tracking-widest border-b-2 border-slate-200 inline-block pb-1">
+            Top 10 Thành Phố Nhiều Nhất Thế Giới
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/vlhiiv860" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-slate-300 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map-pin" class="w-3 h-3 text-cyan-500"></i>
+                            <span id="counter-text">1/10</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-cyan-500 rounded-full progress-transition" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white px-4 py-3 rounded-xl shadow-md shadow-cyan-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        // Dữ liệu mới: 10 nơi mưa nhiều nhất thế giới
+        const dataSources = [
+            {
+                id: 1, name: "Mawsynram, Ấn Độ", image: "mawsynram.jpg",
+                facts: [
+                    "<b>Vua của những cơn mưa:</b> Nơi đây giữ kỷ lục Guinness là nơi ẩm ướt nhất trái đất với lượng mưa khổng lồ hàng năm.",
+                    "<b>Mây mù bao phủ:</b> Tên gọi Meghalaya của vùng này có nghĩa là 'Nơi trú ngụ của những đám mây', sương mù dày đặc quanh năm.",
+                    "<b>Lớp nệm cỏ:</b> Người dân thường lót cỏ dày trên mái nhà để giảm bớt tiếng ồn 'đinh tai nhức óc' khi mưa trút xuống.",
+                    "<b>Cầu rễ sống:</b> Các cây đa ở đây có bộ rễ khổng lồ được người dân uốn thành những cây cầu sống cực kỳ chắc chắn.",
+                    "<b>Hang động đá vôi:</b> Nước mưa chảy liên tục đã bào mòn đá, tạo nên những hang động thạch nhũ tuyệt đẹp và bí ẩn."
+                ]
+            },
+            {
+                id: 2, name: "Cherrapunji, Ấn Độ", image: "cherrapunji.jpg",
+                facts: [
+                    "<b>Á quân về mưa:</b> Từng là nơi mưa nhất thế giới trước khi bị 'người hàng xóm' Mawsynram soán ngôi vương.",
+                    "<b>Thác nước hùng vĩ:</b> Nổi tiếng với thác Nohkalikai cao vút, nước đổ xuống tung bọt trắng xóa quanh năm nhờ nguồn mưa dồi dào.",
+                    "<b>Cam sành ngon tuyệt:</b> Dù mưa nhiều làm đất đai bị rửa trôi, nhưng nơi đây lại trồng được loại cam rất ngọt và nổi tiếng.",
+                    "<b>Mùa mưa bất tận:</b> Mùa mưa ở đây kéo dài tới 6 tháng liền, người dân ra đường lúc nào cũng phải mang theo chiếc ô to.",
+                    "<b>Cầu hai tầng:</b> Có những cây cầu rễ cây cổ thụ được uốn thành hai tầng độc đáo để người dân đi qua suối lũ an toàn."
+                ]
+            },
+            {
+                id: 3, name: "Tutunendo, Colombia", image: "tutunendo.jpg",
+                facts: [
+                    "<b>Rừng nhiệt đới:</b> Nằm sâu trong rừng rậm Colombia, nơi đây nóng hầm hập và ẩm ướt quanh năm.",
+                    "<b>Hai mùa mưa:</b> Ở đây khí hậu rất lạ, không có mùa khô, chỉ có mùa mưa và mùa... mưa nhiều hơn mà thôi.",
+                    "<b>Đa dạng sinh học:</b> Nhờ mưa nhiều, cây cối rậm rạp là nhà của vô số loài chim sặc sỡ và các loài ếch nhái quý hiếm.",
+                    "<b>Đi lại bằng thuyền:</b> Do sông ngòi chằng chịt và mưa ngập, người dân chủ yếu dùng thuyền canoe để đi lại hàng ngày.",
+                    "<b>Độ ẩm cực cao:</b> Quần áo giặt ở đây phơi rất lâu khô vì không khí lúc nào cũng ngậm đầy nước như một miếng bọt biển."
+                ]
+            },
+            {
+                id: 4, name: "Monrovia, Liberia", image: "monrovia.jpg",
+                facts: [
+                    "<b>Thủ đô ướt át:</b> Monrovia là thủ đô quốc gia có lượng mưa hàng năm cao nhất trên thế giới.",
+                    "<b>Đầm lầy ngập mặn:</b> Thành phố nằm xen kẽ với các đầm phá nước lợ và những cánh rừng ngập mặn ven biển xanh tốt.",
+                    "<b>Mái tôn kẽm:</b> Nhà cửa ở đây thường lợp mái tôn kẽm dốc đứng để nước mưa thoát nhanh nhất có thể, tránh sập mái.",
+                    "<b>Mùa mưa bão:</b> Từ tháng 5 đến tháng 10, mưa trút xuống xối xả kéo dài nhiều ngày không dứt, đường phố biến thành sông.",
+                    "<b>Bụi đỏ mù trời:</b> Vào mùa khô hiếm hoi, gió Harmattan thổi bụi đỏ từ sa mạc Sahara đến che mờ cả bầu trời."
+                ]
+            },
+            {
+                id: 5, name: "Hilo, Hawaii (Mỹ)", image: "hilo.jpg",
+                facts: [
+                    "<b>Thiên đường xanh:</b> Nằm trên đảo Hawaii xinh đẹp, Hilo xanh mướt mắt nhờ lượng mưa dồi dào tưới tắm mỗi ngày.",
+                    "<b>Thác Cầu Vồng:</b> Nổi tiếng với Thác Rainbow, nơi thường xuyên xuất hiện cầu vồng rực rỡ trong màn sương nước huyền ảo.",
+                    "<b>Vườn thực vật:</b> Mưa nhiều giúp Hilo sở hữu những vườn hoa lan và thực vật nhiệt đới lớn và đẹp nhất thế giới.",
+                    "<b>Núi lửa ngủ quên:</b> Thành phố nằm ngay dưới chân hai ngọn núi lửa khổng lồ là Mauna Loa và Mauna Kea.",
+                    "<b>Ngắm sao:</b> Dù ở phố mưa nhiều, nhưng đỉnh núi Mauna Kea gần đó lại cao và trong trẻo, là nơi ngắm sao tuyệt nhất thế giới."
+                ]
+            },
+            {
+                id: 6, name: "Bergen, Na Uy", image: "bergen.jpg",
+                facts: [
+                    "<b>Thành phố của Mưa:</b> Được gọi vui là 'Thành phố ô dù' của Châu Âu vì trời mưa suốt hơn 200 ngày mỗi năm.",
+                    "<b>Máy bán ô:</b> Ở đây người ta đặt các máy bán ô (dù) và áo mưa tự động ở khắp nơi trên đường phố như bán nước ngọt.",
+                    "<b>Bảy ngọn núi:</b> Thành phố được bao quanh bởi 7 ngọn núi hùng vĩ, khiến mây mưa bị giữ lại lơ lửng ngay trên đầu.",
+                    "<b>Nhà gỗ sắc màu:</b> Khu bến cảng Bryggen với những ngôi nhà gỗ rực rỡ sắc màu san sát nhau là Di sản thế giới UNESCO.",
+                    "<b>Lễ hội mưa:</b> Người dân ở đây lạc quan đến mức họ tổ chức cả lễ hội tôn vinh mưa với áo mưa và ủng sành điệu."
+                ]
+            },
+            {
+                id: 7, name: "Buenaventura, Colombia", image: "buenaventura.jpg",
+                facts: [
+                    "<b>Cảng biển lớn:</b> Là thành phố cảng chính của Colombia bên bờ Thái Bình Dương rộng lớn và đầy gió.",
+                    "<b>Mưa về đêm:</b> Một điều thú vị là mưa thường trút xuống xối xả vào ban đêm, còn ban ngày trời lại hửng nắng đẹp.",
+                    "<b>Cá voi lưng gù:</b> Vùng biển này là nơi tuyệt vời để ngắm cá voi lưng gù khổng lồ di cư về vùng nước ấm để sinh con.",
+                    "<b>Rừng ngập mặn:</b> Bao quanh thành phố là hệ sinh thái rừng ngập mặn xanh tốt giúp chắn sóng và bảo vệ bờ biển.",
+                    "<b>Nhà sàn:</b> Nhiều ngôi nhà ven sông được xây dựng trên các cọc gỗ cao (nhà sàn) để tránh ngập lụt khi nước dâng."
+                ]
+            },
+            {
+                id: 8, name: "Bioko, Guinea Xích đạo", image: "bioko.jpg",
+                facts: [
+                    "<b>Đảo núi lửa:</b> Bioko thực chất là một hòn đảo núi lửa khổng lồ nằm ngoài khơi bờ biển Tây Phi.",
+                    "<b>Ngôi làng ướt nhất:</b> Ngôi làng Ureca nằm ở phía nam đảo được mệnh danh là nơi mưa nhiều nhất lục địa Châu Phi.",
+                    "<b>Bãi biển đen:</b> Bờ biển ở đây có cát màu đen tuyền độc đáo do nguồn gốc từ đá núi lửa phun trào ngàn năm trước.",
+                    "<b>Khỉ quý hiếm:</b> Khu rừng rậm rạp trên đảo là nơi sinh sống của nhiều loài khỉ Drill quý hiếm có khuôn mặt rất lạ.",
+                    "<b>Sô-cô-la:</b> Khí hậu nóng ẩm và đất núi lửa màu mỡ rất thích hợp để trồng cây ca cao làm sô-cô-la thượng hạng."
+                ]
+            },
+            {
+                id: 9, name: "Quibdó, Colombia", image: "quibdo.jpg",
+                facts: [
+                    "<b>Không có mùa khô:</b> Đây là nơi duy nhất ở Nam Mỹ gần như không bao giờ có mùa khô thực sự, mưa quanh năm suốt tháng.",
+                    "<b>Thủ đô sấm sét:</b> Nơi đây cũng nổi tiếng là vùng đất có mật độ sấm chớp và giông bão cao nhất thế giới.",
+                    "<b>Sông Atrato:</b> Thành phố nằm bên dòng sông Atrato hùng vĩ, là 'con đường' chính để người dân đi lại và buôn bán.",
+                    "<b>Rừng rậm Chocó:</b> Nằm trong vùng sinh thái Chocó, một trong những nơi có nhiều loài cây và con vật lạ nhất hành tinh.",
+                    "<b>Vàng và Bạch kim:</b> Dòng sông ở đây không chỉ nhiều nước mà trong cát còn chứa cả bụi vàng và bạch kim quý giá."
+                ]
+            },
+            {
+                id: 10, name: "Singapore, Singapore", image: "singapore.jpg",
+                facts: [
+                    "<b>Thành phố trong vườn:</b> Dù mưa nhiều, Singapore biến điều đó thành lợi thế để cây xanh phát triển phủ kín mọi tòa nhà.",
+                    "<b>Mưa bất chợt:</b> Những cơn mưa rào nhiệt đới thường đến rất nhanh, xối xả rồi tạnh ngay, để lại bầu trời trong vắt.",
+                    "<b>Thác nước trong nhà:</b> Sân bay Changi có thác nước trong nhà cao nhất thế giới (Rain Vortex) lấy cảm hứng từ những cơn mưa.",
+                    "<b>Hứng nước mưa:</b> Singapore có hệ thống cống rãnh và hồ chứa nước mưa khổng lồ cực kỳ hiện đại để lọc thành nước sạch.",
+                    "<b>Siêu cây khổng lồ:</b> Khu Gardens by the Bay có những 'Siêu cây' nhân tạo khổng lồ có chức năng hứng nước mưa để tưới cây."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/cyan/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-cyan-200 text-cyan-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-cyan-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-cyan-700 mb-3 uppercase border-b border-cyan-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-cyan-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-cyan-100 to-blue-200 p-6 rounded-full shadow-lg shadow-cyan-200">
+                        <i data-lucide="award" class="w-20 h-20 text-cyan-600 fill-cyan-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Thành Phố Nhiều Nhất Thế Giới!
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4 w-full items-center mt-2">
+                         <a href="https://catalog.zalo.me/?cid=Cj7DJZsJd0quribUCkIP5roWjaPPcESPLAtCHYAUbnDTeA5SCfhpS0" 
+                           target="_blank"
+                           class="w-full max-w-xs flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100">
+                            <i data-lucide="gift" class="w-5 h-5"></i>
+                            Sản phẩm cho sức khoẻ Mẹ & Bé 
+                        </a>
+
+                        <a href="https://catalog.zalo.me/?cid=CjBEIJkIbGe-ry1PDEMG45gXlq5VcUuUKgp5GIIVdXHReQXRD9lwTm
+" 
+                           target="_blank"
+                           class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-200 transition-all hover:scale-105 transform border border-blue-400">
+                            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                            Sản phẩm phát triển trí tuệ & Cảm xúc cho bé
+                        </a>
+                    </div>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-cyan-600 hover:text-cyan-800 font-semibold text-sm mt-4 bg-cyan-50 px-5 py-2 rounded-full transition-colors border border-cyan-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
