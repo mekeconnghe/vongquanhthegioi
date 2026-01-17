@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Những Vùng Đất Nóng Nhất</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Top 10 thành phố nóng nhất và khắc nghiệt nhất trên thế giới" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/35/68/51/35685155afa20f4e33c338cc396736f3.jpg" />
+    <meta property="og:type" content="https://mekeconnghe.github.io/vongquanhthegioi/thanhphonongnhat/" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-slate-800 flex items-center justify-center gap-2">
+            <i data-lucide="flame" class="w-6 h-6 md:w-8 md:h-8 text-orange-500"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-slate-600 uppercase tracking-widest border-b-2 border-slate-200 inline-block pb-1">
+            Top 10 Thành Phố Nóng Nhất Thế Giới
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/vlhiiv860" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-slate-300 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map-pin" class="w-3 h-3 text-orange-500"></i>
+                            <span id="counter-text">1/10</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-500 rounded-full progress-transition" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-orange-600 hover:bg-orange-700 active:bg-orange-800 text-white px-4 py-3 rounded-xl shadow-md shadow-orange-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Thung lũng Chết, Mỹ", image: "death_valley.jpg",
+                facts: [
+                    "<b>Nơi nóng nhất:</b> Giữ kỷ lục thế giới về nhiệt độ nóng nhất từng được ghi nhận trên Trái đất: 56.7°C (năm 1913).",
+                    "<b>Đá tự đi:</b> Nổi tiếng với hiện tượng bí ẩn 'những hòn đá biết đi' tự di chuyển trên mặt hồ khô Racetrack Playa.",
+                    "<b>Dưới mặt biển:</b> Là điểm thấp nhất ở Bắc Mỹ (Badwater Basin), nằm dưới mực nước biển 86 mét.",
+                    "<b>Hoa dại:</b> Dù khô cằn chết chóc, sau những trận mưa hiếm hoi, cả thung lũng sẽ nở đầy hoa dại rực rỡ (Superbloom).",
+                    "<b>Tên gọi:</b> Được đặt tên là 'Thung lũng Chết' bởi những người đào vàng may mắn sống sót vượt qua đây năm 1849."
+                ]
+            },
+            {
+                id: 2, name: "Dallol, Ethiopia", image: "dallol.jpg",
+                facts: [
+                    "<b>Địa ngục trần gian:</b> Được mệnh danh là nơi nóng nhất thế giới tính theo nhiệt độ trung bình năm (luôn trên 35°C).",
+                    "<b>Màu sắc kỳ lạ:</b> Cảnh quan rực rỡ màu vàng, cam, xanh lục do muối, lưu huỳnh và khoáng chất từ núi lửa phun trào.",
+                    "<b>Thành phố ma:</b> Từng là một thị trấn khai thác muối sầm uất nhưng nay đã bị bỏ hoang hoàn toàn do quá khắc nghiệt.",
+                    "<b>Hồ axit:</b> Các hồ nước nóng ở đây có độ mặn và axit cao đến mức vi sinh vật cũng khó có thể tồn tại.",
+                    "<b>Vùng trũng:</b> Nằm trong vùng trũng Danakil, thấp hơn mực nước biển khoảng 130 mét, nóng như lò lửa."
+                ]
+            },
+            {
+                id: 3, name: "Thành phố Kuwait, Kuwait", image: "kuwait.jpg",
+                facts: [
+                    "<b>Nóng kỷ lục:</b> Nhiệt độ mùa hè thường xuyên vượt quá 50°C, từng ghi nhận 54°C, nóng đến mức nhựa đường tan chảy.",
+                    "<b>Chim rơi:</b> Đã từng có hiện tượng chim chóc đang bay trên trời bị chết do sốc nhiệt và rơi xuống đất.",
+                    "<b>Sống về đêm:</b> Vào mùa hè, người dân thường ngủ ngày và bắt đầu hoạt động, vui chơi, mua sắm nhộn nhịp vào ban đêm.",
+                    "<b>Tháp nước:</b> Nổi tiếng với biểu tượng Tháp nước Kuwait hình nấm khổng lồ, nơi dự trữ nước ngọt quý giá.",
+                    "<b>Không có sông:</b> Kuwait là một trong số ít quốc gia trên thế giới không có bất kỳ dòng sông hay hồ nước tự nhiên nào."
+                ]
+            },
+            {
+                id: 4, name: "Ahvaz, Iran", image: "ahvaz.jpg",
+                facts: [
+                    "<b>Đứng đầu bảng:</b> Thường xuyên đứng đầu danh sách các thành phố có nhiệt độ mùa hè nóng nhất thế giới.",
+                    "<b>Cầu Trắng:</b> Biểu tượng của thành phố là cây cầu dây văng màu trắng tuyệt đẹp bắc qua sông Karun.",
+                    "<b>Sông Karun:</b> Là con sông duy nhất ở Iran có thể đi lại bằng tàu thuyền, giúp làm mát một phần thành phố.",
+                    "<b>Ô nhiễm:</b> Không chỉ nóng, đây còn từng được xếp hạng là một trong những thành phố ô nhiễm không khí nhất thế giới.",
+                    "<b>Dầu mỏ:</b> Là thủ phủ của tỉnh Khuzestan, trung tâm sản xuất dầu mỏ giàu có và lớn nhất của Iran."
+                ]
+            },
+            {
+                id: 5, name: "Bangkok, Thái Lan", image: "bangkok.jpg",
+                facts: [
+                    "<b>Thành phố oi bức:</b> Được gọi là thành phố nóng nhất thế giới không phải vì nhiệt độ cao nhất, mà vì nóng quanh năm không nghỉ.",
+                    "<b>Tên dài nhất:</b> Tên đầy đủ của Bangkok là tên địa danh dài nhất thế giới, gồm hơn 160 chữ cái.",
+                    "<b>Chợ nổi:</b> Nổi tiếng với văn hóa chợ nổi trên sông độc đáo, nơi thuyền bè buôn bán tấp nập.",
+                    "<b>Venice phương Đông:</b> Có hệ thống kênh rạch chằng chịt, phương tiện di chuyển bằng thuyền (Water Taxi) rất phổ biến.",
+                    "<b>Chùa Vàng:</b> Là nơi tọa lạc của Chùa Phật Ngọc và Cung điện Hoàng gia lộng lẫy, rực rỡ dưới ánh mặt trời."
+                ]
+            },
+            {
+                id: 6, name: "Timbuktu, Mali", image: "timbuktu.jpg",
+                facts: [
+                    "<b>Cửa ngõ sa mạc:</b> Nằm ngay rìa phía Nam của sa mạc Sahara, hứng chịu những cơn gió nóng bỏng mang đầy cát.",
+                    "<b>Thành phố Vàng:</b> Trong quá khứ từng là trung tâm buôn bán vàng và muối sầm uất, giàu có nhất châu Phi.",
+                    "<b>Tri thức:</b> Nổi tiếng thế giới với hàng trăm nghìn cuốn sách cổ quý giá được cất giữ bí mật trong các thư viện tư nhân.",
+                    "<b>Kiến trúc đất:</b> Các đền đài, nhà cửa ở đây được xây dựng hoàn toàn bằng bùn đất và gỗ theo kiến trúc đặc trưng.",
+                    "<b>Nơi tận cùng:</b> Cái tên 'Timbuktu' trong văn hóa phương Tây thường được dùng để chỉ một nơi xa xôi, hẻo lánh nhất thế giới."
+                ]
+            },
+            {
+                id: 7, name: "Ghadames, Libya", image: "ghadames.jpg",
+                facts: [
+                    "<b>Hòn ngọc sa mạc:</b> Là một ốc đảo xanh tươi tuyệt đẹp nằm giữa biển cát mênh mông của sa mạc Sahara.",
+                    "<b>Nhà làm mát:</b> Nhà cửa xây bằng bùn dày, san sát nhau để tạo bóng râm và giữ nhiệt độ bên trong luôn mát mẻ.",
+                    "<b>Đường trên mái:</b> Phụ nữ ở đây theo truyền thống di chuyển và giao tiếp với nhau bằng lối đi riêng trên các mái nhà.",
+                    "<b>Phố có mái che:</b> Các con ngõ trong phố cổ đều có mái che phía trên để người đi bộ tránh ánh nắng mặt trời gay gắt.",
+                    "<b>Di sản:</b> Được UNESCO công nhận là Di sản Thế giới nhờ kiến trúc quy hoạch đô thị sa mạc thông minh và độc đáo."
+                ]
+            },
+            {
+                id: 8, name: "Kebili, Tunisia", image: "kebili.jpg",
+                facts: [
+                    "<b>Cực nóng:</b> Từng giữ kỷ lục nhiệt độ cao nhất châu Phi (55°C) được ghi nhận vào năm 1931.",
+                    "<b>Ốc đảo cổ:</b> Là ốc đảo có người sinh sống lâu đời nhất tại Tunisia và Bắc Phi (hơn 200.000 năm lịch sử).",
+                    "<b>Vua Chà là:</b> Nổi tiếng với những vườn chà là bạt ngàn, sản sinh ra loại chà là ngon nhất thế giới.",
+                    "<b>Du mục:</b> Là điểm xuất phát phổ biến cho du khách muốn trải nghiệm cưỡi lạc đà đi vào sa mạc Sahara.",
+                    "<b>Thương mại:</b> Trong lịch sử từng là một trung tâm buôn bán nô lệ lớn xuyên sa mạc Sahara."
+                ]
+            },
+            {
+                id: 9, name: "Mecca, Saudi Arabia", image: "mecca.jpg",
+                facts: [
+                    "<b>Thánh địa:</b> Là nơi sinh của Tiên tri Muhammad và là thành phố linh thiêng nhất của người Hồi giáo.",
+                    "<b>Hành hương:</b> Hàng năm đón hàng triệu người về hành hương (Hajj) bất chấp nhiệt độ mùa hè thường xuyên trên 45°C.",
+                    "<b>Cấm người ngoài:</b> Chỉ những người theo đạo Hồi mới được phép bước chân vào thành phố này.",
+                    "<b>Thành phố lều:</b> Có khu Mina với 100.000 lều chống cháy có điều hòa để phục vụ khách hành hương tránh nóng.",
+                    "<b>Đồng hồ:</b> Có Tháp đồng hồ Hoàng gia Mecca cao thứ 3 thế giới với mặt đồng hồ lớn nhất thế giới."
+                ]
+            },
+            {
+                id: 10, name: "Phoenix, Mỹ", image: "phoenix.jpg",
+                facts: [
+                    "<b>Thung lũng Mặt trời:</b> Được mệnh danh là 'Thung lũng của Mặt trời' vì có hơn 300 ngày nắng chói chang mỗi năm.",
+                    "<b>100 ngày 100 độ:</b> Thường xuyên có chuỗi hơn 100 ngày liên tiếp nhiệt độ vượt quá 100°F (38°C) mỗi năm.",
+                    "<b>Xương rồng:</b> Là quê hương của loài xương rồng Saguaro khổng lồ hình người, biểu tượng của miền Tây nước Mỹ.",
+                    "<b>Bão bụi:</b> Mùa hè thường xuất hiện những cơn bão bụi khổng lồ (Haboob) cao hàng nghìn mét nuốt chửng thành phố.",
+                    "<b>Thành phố lớn:</b> Là thủ phủ bang duy nhất ở Mỹ có hơn 1 triệu dân dám phát triển mạnh mẽ giữa sa mạc."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-orange-100 text-orange-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-orange-700 mb-3 uppercase border-b border-orange-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-orange-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-orange-100 to-red-200 p-6 rounded-full shadow-lg shadow-orange-200">
+                        <i data-lucide="award" class="w-20 h-20 text-orange-600 fill-orange-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Thành Phố Nóng Nhất Thế Giới!
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4 w-full items-center mt-2">
+                         <a href="https://catalog.zalo.me/?cid=Cj7DJZsJd0quribUCkIP5roWjaPPcESPLAtCHYAUbnDTeA5SCfhpS0" 
+                           target="_blank"
+                           class="w-full max-w-xs flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100">
+                            <i data-lucide="gift" class="w-5 h-5"></i>
+                            Sản phẩm cho sức khoẻ Mẹ & Bé 
+                        </a>
+
+                        <a href="https://catalog.zalo.me/?cid=CjBEIJkIbGe-ry1PDEMG45gXlq5VcUuUKgp5GIIVdXHReQXRD9lwTm
+" 
+                           target="_blank"
+                           class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-200 transition-all hover:scale-105 transform border border-blue-400">
+                            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                            Sản phẩm phát triển trí tuệ & Cảm xúc cho bé
+                        </a>
+                    </div>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-orange-600 hover:text-orange-800 font-semibold text-sm mt-4 bg-orange-50 px-5 py-2 rounded-full transition-colors border border-orange-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
