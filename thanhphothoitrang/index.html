@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Những Thành Phố Nổi Tiếng</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Top 10 kinh đô thời trang thế giới" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/ca/b2/83/cab283ff6cb33148325a28652192c4c7.jpg" />
+    <meta property="og:type" content="https://mekeconnghe.github.io/vongquanhthegioi/thanhphothoitrang/" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-slate-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8 text-cyan-500"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-slate-600 uppercase tracking-widest border-b-2 border-slate-200 inline-block pb-1">
+            Top 10 Kinh Đô Thời Trang Thế Giới
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-slate-300 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map-pin" class="w-3 h-3 text-cyan-500"></i>
+                            <span id="counter-text">1/10</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-cyan-500 rounded-full progress-transition" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white px-4 py-3 rounded-xl shadow-md shadow-cyan-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Paris, Pháp", image: "paris.jpg",
+                facts: [
+                    "<b>Tháp Eiffel:</b> Ngọn tháp bằng sắt khổng lồ cao chọc trời, là biểu tượng nổi tiếng nhất thế giới mà ai cũng muốn đến thăm.",
+                    "<b>Kinh đô Thời trang:</b> Paris là nơi sinh ra những bộ quần áo đẹp nhất, nơi các cô người mẫu trình diễn trên sàn catwalk lộng lẫy.",
+                    "<b>Bảo tàng Louvre:</b> Ngôi nhà khổng lồ lưu giữ bức tranh nàng Mona Lisa với nụ cười bí ẩn nổi tiếng khắp hành tinh.",
+                    "<b>Bánh Croissant:</b> Những chiếc bánh sừng bò thơm lừng mùi bơ nóng hổi là món ăn sáng yêu thích của người dân nơi đây.",
+                    "<b>Khải Hoàn Môn:</b> Một cánh cổng đá to lớn và hùng vĩ nằm giữa giao lộ của 12 con đường tỏa ra như ngôi sao."
+                ]
+            },
+            {
+                id: 2, name: "Milan, Ý", image: "milan.jpg",
+                facts: [
+                    "<b>Thành phố Mốt:</b> Cùng với Paris, Milan là nơi quy tụ các nhà thiết kế tài ba nhất, tạo ra xu hướng ăn mặc cho cả thế giới.",
+                    "<b>Nhà thờ Duomo:</b> Một nhà thờ đá cẩm thạch trắng muốt với hàng nghìn bức tượng điêu khắc tinh xảo đứng trên mái nhà.",
+                    "<b>Bữa tiệc cuối cùng:</b> Nơi đây lưu giữ bức tranh tường nổi tiếng 'Bữa tiệc cuối cùng' của danh họa thiên tài Leonardo da Vinci.",
+                    "<b>Mì Ý và Pizza:</b> Bé sẽ được thưởng thức món mì Spaghetti và bánh Pizza nướng củi chuẩn vị Ý ngon tuyệt cú mèo.",
+                    "<b>Tàu điện màu vàng:</b> Những chiếc tàu điện cổ kính màu vàng cam vẫn chạy leng keng khắp các con phố hiện đại."
+                ]
+            },
+            {
+                id: 3, name: "London, Anh", image: "london.jpg",
+                facts: [
+                    "<b>Đồng hồ Big Ben:</b> Tháp đồng hồ 4 mặt khổng lồ phát ra tiếng chuông 'bong bong' trầm ấm báo hiệu giờ cho cả thành phố.",
+                    "<b>Xe buýt 2 tầng:</b> Những chiếc xe buýt màu đỏ rực rỡ có hai tầng, bé có thể ngồi tầng trên để ngắm nhìn đường phố.",
+                    "<b>Lính Hoàng gia:</b> Các chú lính gác cung điện mặc áo đỏ, đội mũ lông gấu đen cao vút và đứng nghiêm trang không bao giờ cười.",
+                    "<b>Vòng quay Mắt London:</b> Một vòng quay khổng lồ bên bờ sông giúp bé có thể nhìn thấy toàn cảnh thành phố từ trên cao.",
+                    "<b>Trà chiều:</b> Người dân ở đây rất thích uống trà nóng và ăn bánh ngọt vào buổi chiều, một nét văn hóa rất thanh lịch."
+                ]
+            },
+            {
+                id: 4, name: "New York, Mỹ", image: "newyork.jpg",
+                facts: [
+                    "<b>Tượng Nữ thần Tự do:</b> Bức tượng khổng lồ màu xanh ngọc cầm ngọn đuốc rực sáng, chào đón mọi người đến với nước Mỹ.",
+                    "<b>Quảng trường Thời đại:</b> Nơi đây không bao giờ ngủ với hàng trăm màn hình quảng cáo đèn LED sáng rực rỡ cả ngày lẫn đêm.",
+                    "<b>Taxi màu vàng:</b> Đường phố tấp nập những chiếc xe taxi sơn màu vàng tươi đặc trưng chạy như mắc cửi.",
+                    "<b>Rừng bê tông:</b> New York có vô số tòa nhà chọc trời cao vút, nhìn từ xa giống như một khu rừng làm bằng bê tông và kính.",
+                    "<b>Công viên Trung tâm:</b> Giữa thành phố đông đúc lại có một công viên xanh mát siêu to khổng lồ để mọi người thư giãn."
+                ]
+            },
+            {
+                id: 5, name: "Tokyo, Nhật Bản", image: "tokyo.jpg",
+                facts: [
+                    "<b>Hoa Anh Đào:</b> Vào mùa xuân, cả thành phố nhuộm màu hồng phấn bởi hàng triệu cánh hoa anh đào bay trong gió.",
+                    "<b>Tàu Shinkansen:</b> Những đoàn tàu 'viên đạn' chạy siêu nhanh, đưa mọi người đi khắp nơi chỉ trong chớp mắt.",
+                    "<b>Giao lộ Shibuya:</b> Ngã tư đông đúc nhất thế giới, khi đèn xanh bật lên, hàng nghìn người cùng đi qua đường như đàn kiến.",
+                    "<b>Xứ sở Anime:</b> Tokyo là thiên đường của phim hoạt hình, truyện tranh Manga và các nhân vật cosplay đầy màu sắc.",
+                    "<b>Sushi tươi ngon:</b> Món cơm cuộn cá sống nổi tiếng thế giới được làm bởi những đầu bếp tài hoa và tỉ mỉ."
+                ]
+            },
+            {
+                id: 6, name: "Seoul, Hàn Quốc", image: "seoul.jpg",
+                facts: [
+                    "<b>Tháp Namsan:</b> Ngọn tháp cao nằm trên núi, nơi các cặp đôi thường đến để treo móc khóa tình yêu đầy màu sắc.",
+                    "<b>Nhạc K-Pop:</b> Quê hương của những nhóm nhạc thần tượng nhảy đẹp và hát hay được trẻ em khắp thế giới yêu thích.",
+                    "<b>Cung điện Gyeongbokgung:</b> Bé sẽ thấy những ngôi nhà cổ mái ngói cong vút nằm xen kẽ ngay cạnh những tòa nhà hiện đại.",
+                    "<b>Món Kim chi:</b> Món ăn kèm cay cay giòn giòn làm từ cải thảo có mặt trong hầu hết các bữa cơm của người dân.",
+                    "<b>Sông Hàn:</b> Dòng sông rộng lớn chảy qua thành phố với những cây cầu phun nước và ánh sáng lung linh về đêm."
+                ]
+            },
+            {
+                id: 7, name: "Shanghai, Trung Quốc", image: "shanghai.jpg",
+                facts: [
+                    "<b>Bến Thượng Hải:</b> Nơi bé có thể ngắm nhìn những tòa nhà cổ kính kiểu phương Tây đối diện với những tòa tháp hiện đại.",
+                    "<b>Tháp Minh Châu Phương Đông:</b> Tòa tháp truyền hình có hình dáng kỳ lạ như những viên ngọc trai khổng lồ xâu chuỗi lại.",
+                    "<b>Tàu đệm từ:</b> Thượng Hải sở hữu tàu điện chạy bằng từ tính lơ lửng trên đường ray, nhanh như bay.",
+                    "<b>Tiểu Long Bao:</b> Món bánh bao nhỏ xíu bên trong có nước súp nóng hổi ngọt lịm, là đặc sản không thể bỏ qua.",
+                    "<b>Thành phố không ngủ:</b> Buổi tối, cả thành phố rực sáng ánh đèn neon, phản chiếu xuống dòng sông Hoàng Phố tuyệt đẹp."
+                ]
+            },
+            {
+                id: 8, name: "Madrid, Tây Ban Nha", image: "madrid.jpg",
+                facts: [
+                    "<b>Cung điện Hoàng gia:</b> Một trong những cung điện lớn nhất châu Âu với hàng nghìn phòng được trang trí vàng son lộng lẫy.",
+                    "<b>Điệu nhảy Flamenco:</b> Các cô vũ công mặc váy đỏ xòe rộng, nhảy múa sôi động cùng tiếng đàn guitar và tiếng vỗ tay.",
+                    "<b>Bóng đá đỉnh cao:</b> Madrid là nhà của đội bóng Real Madrid nổi tiếng với sân vận động Bernabéu khổng lồ.",
+                    "<b>Quảng trường Mayor:</b> Quảng trường hình chữ nhật rộng lớn bao quanh bởi các tòa nhà đỏ, nơi diễn ra nhiều lễ hội vui nhộn.",
+                    "<b>Món Churros:</b> Những chiếc bánh quẩy dài giòn rụm chấm với sô cô la nóng đặc quánh là món ăn vặt tuyệt vời."
+                ]
+            },
+            {
+                id: 9, name: "Los Angeles, Mỹ", image: "losangeles.jpg",
+                facts: [
+                    "<b>Biển hiệu Hollywood:</b> Chữ HOLLYWOOD màu trắng khổng lồ đặt trên sườn đồi là biểu tượng của kinh đô điện ảnh thế giới.",
+                    "<b>Đại lộ Danh vọng:</b> Con đường có gắn những ngôi sao màu hồng ghi tên các nghệ sĩ nổi tiếng được mọi người yêu mến.",
+                    "<b>Phim trường Universal:</b> Nơi bé có thể tham quan hậu trường làm phim và chơi các trò chơi cảm giác mạnh theo chủ đề phim.",
+                    "<b>Bãi biển Santa Monica:</b> Bãi biển nắng ấm quanh năm với cầu cảng nhộn nhịp và vòng quay mặt trời ngay sát biển.",
+                    "<b>Hàng cọ cao vút:</b> Đặc trưng của thành phố là những hàng cây cọ cao tít tắp chạy dọc theo các con đường rộng lớn."
+                ]
+            },
+            {
+                id: 10, name: "Copenhagen, Đan Mạch", image: "copenhagen.jpg",
+                facts: [
+                    "<b>Nàng Tiên Cá:</b> Bức tượng đồng nhỏ về nàng tiên cá trong truyện cổ tích Andersen ngồi trầm tư bên bờ biển.",
+                    "<b>Thành phố Xe đạp:</b> Người dân ở đây yêu thích đi xe đạp đến mức có những cây cầu và đường cao tốc dành riêng cho xe đạp.",
+                    "<b>Bến cảng Nyhavn:</b> Những ngôi nhà cổ sơn màu sắc rực rỡ như bảy sắc cầu vồng soi bóng xuống dòng kênh xanh.",
+                    "<b>Quê hương Lego:</b> Đất nước này chính là nơi sinh ra những viên gạch Lego thần kỳ mà bé vẫn hay chơi hàng ngày.",
+                    "<b>Hạnh phúc nhất:</b> Copenhagen luôn nằm trong top những thành phố mà người dân cảm thấy vui vẻ và hạnh phúc nhất thế giới."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/cyan/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-cyan-200 text-cyan-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-cyan-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-cyan-700 mb-3 uppercase border-b border-cyan-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-cyan-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-cyan-100 to-blue-200 p-6 rounded-full shadow-lg shadow-cyan-200">
+                        <i data-lucide="award" class="w-20 h-20 text-cyan-600 fill-cyan-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Top 10 Kinh Đô Thời Trang Thế Giới!
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4 w-full items-center mt-2">
+                         <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                           target="_blank"
+                           class="w-full max-w-xs flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100">
+                            <i data-lucide="gift" class="w-5 h-5"></i>
+                            Sản phẩm cho sức khoẻ Mẹ & Bé 
+                        </a>
+
+                        <a href="https://catalog.zalo.me/?cid=CjBEIJkIcGf8hRv7C96N3Jcgmb16w-KODANFJaMGdsSijSy-8OJg4W" 
+                           target="_blank"
+                           class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-200 transition-all hover:scale-105 transform border border-blue-400">
+                            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                            Sản phẩm phát triển trí tuệ & Cảm xúc cho bé
+                        </a>
+                    </div>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-cyan-600 hover:text-cyan-800 font-semibold text-sm mt-4 bg-cyan-50 px-5 py-2 rounded-full transition-colors border border-cyan-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
