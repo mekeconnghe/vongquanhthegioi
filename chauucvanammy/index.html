@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Nam Mỹ & Châu Đại Dương</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Các Quốc Gia Khu Vực Châu Nam Mỹ & Châu Úc" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/bf/d3/28/bfd328011d0c26bac5dcd4eb034182f9.jpg" />
+    <meta property="og:type" content="https://mekeconnghe.github.io/vongquanhthegioi/chauucvanammy/" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-amber-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-amber-800 flex items-center justify-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 md:w-8 md:h-8"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-amber-600 uppercase tracking-widest border-b-2 border-amber-200 inline-block pb-1">
+            Quốc Gia Khu Vực Châu Nam Mỹ & Châu Úc
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/vlhiiv860" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-amber-200 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map" class="w-3 h-3 text-orange-400"></i>
+                            <span id="counter-text">1/26</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-amber-50 text-amber-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-orange-400 rounded-full progress-transition" style="width: 3%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 active:bg-amber-800 text-white px-4 py-3 rounded-xl shadow-md shadow-amber-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            // --- NAM MỸ ---
+            {
+                id: 1, name: "Brazil", image: "brazil.jpg",
+                facts: [
+                    "<b>Rừng Amazon:</b> Sở hữu phần lớn rừng nhiệt đới Amazon, 'lá phổi xanh' của Trái đất.",
+                    "<b>Bóng đá:</b> Là quốc gia duy nhất tham dự tất cả các vòng chung kết World Cup và vô địch nhiều nhất.",
+                    "<b>Carnival:</b> Lễ hội Carnival ở Rio de Janeiro là lễ hội đường phố lớn nhất và rực rỡ nhất thế giới.",
+                    "<b>Cà phê:</b> Là nước sản xuất cà phê lớn nhất thế giới trong hơn 150 năm qua.",
+                    "<b>Tượng chúa:</b> Tượng Chúa Cứu Thế khổng lồ dang tay là một trong 7 kỳ quan thế giới mới."
+                ]
+            },
+            {
+                id: 2, name: "Argentina", image: "argentina.jpg",
+                facts: [
+                    "<b>Điệu Tango:</b> Là quê hương của điệu nhảy Tango quyến rũ và nồng nàn.",
+                    "<b>Messi:</b> Đất nước sản sinh ra những huyền thoại bóng đá vĩ đại như Messi và Maradona.",
+                    "<b>Thịt bò:</b> Người dân ăn thịt bò nhiều nhất thế giới, món nướng Asado là đặc sản.",
+                    "<b>Dãy Andes:</b> Có đỉnh núi Aconcagua cao nhất bên ngoài dãy Himalaya.",
+                    "<b>Chim cánh cụt:</b> Ở vùng cực nam Patagonia, bạn có thể ngắm hàng nghìn chú chim cánh cụt."
+                ]
+            },
+            {
+                id: 3, name: "Colombia", image: "colombia.jpg",
+                facts: [
+                    "<b>Hoa tươi:</b> Là quốc gia xuất khẩu hoa tươi (đặc biệt là hoa hồng) lớn thứ hai thế giới.",
+                    "<b>Ngọc lục bảo:</b> Sản xuất tới 90% lượng ngọc lục bảo (Emerald) chất lượng cao của toàn cầu.",
+                    "<b>Sông Cầu Vồng:</b> Có dòng sông Caño Cristales đổi 5 màu rực rỡ, đẹp nhất thế giới.",
+                    "<b>Chim:</b> Là nơi có số lượng loài chim đa dạng nhất hành tinh.",
+                    "<b>Trái cây:</b> Bạn có thể ăn mỗi ngày một loại trái cây khác nhau trong suốt cả năm."
+                ]
+            },
+            {
+                id: 4, name: "Peru", image: "peru.jpg",
+                facts: [
+                    "<b>Machu Picchu:</b> Thành phố cổ của người Inca nằm trên đỉnh núi mây mù là điểm đến huyền bí.",
+                    "<b>Khoai tây:</b> Là quê hương gốc của cây khoai tây với hơn 3.000 loại đủ màu sắc.",
+                    "<b>Lạc đà:</b> Những chú Lạc đà không bướu (Llama và Alpaca) dễ thương đi lại khắp nơi.",
+                    "<b>Hồ Titicaca:</b> Là hồ nước ngọt nằm ở độ cao cao nhất thế giới mà tàu bè đi lại được.",
+                    "<b>Hình vẽ Nazca:</b> Có những hình vẽ khổng lồ trên sa mạc chỉ có thể nhìn thấy rõ từ máy bay."
+                ]
+            },
+            {
+                id: 5, name: "Venezuela", image: "venezuela.jpg",
+                facts: [
+                    "<b>Thác Thiên Thần:</b> Angel Falls là thác nước cao nhất thế giới (nước rơi từ độ cao gần 1km).",
+                    "<b>Sấm sét:</b> Hồ Maracaibo là nơi bị sét đánh nhiều nhất thế giới (hiện tượng sét Catatumbo).",
+                    "<b>Hoa hậu:</b> Là đất nước nổi tiếng với 'ngành công nghiệp' đào tạo hoa hậu thế giới.",
+                    "<b>Dầu mỏ:</b> Sở hữu trữ lượng dầu mỏ lớn nhất thế giới, nhiều hơn cả Ả Rập Xê Út.",
+                    "<b>Núi bàn:</b> Có những ngọn núi đỉnh bằng phẳng (Tepui) cổ xưa nhất Trái đất."
+                ]
+            },
+            {
+                id: 6, name: "Chile", image: "chile.jpg",
+                facts: [
+                    "<b>Dài nhất:</b> Là quốc gia có hình dáng dài và hẹp nhất thế giới (giống hình quả ớt).",
+                    "<b>Sa mạc:</b> Sa mạc Atacama là nơi khô hạn nhất Trái đất, có nơi chưa từng mưa.",
+                    "<b>Đảo Phục Sinh:</b> Nổi tiếng với những bức tượng đá khổng lồ (Moai) bí ẩn nhìn ra biển.",
+                    "<b>Đồng:</b> Là nước sản xuất đồng lớn nhất thế giới, dùng để làm dây điện.",
+                    "<b>Bơi lội:</b> Có hồ bơi ngoài trời lớn nhất thế giới, to bằng 20 hồ bơi Olympic cộng lại."
+                ]
+            },
+            {
+                id: 7, name: "Ecuador", image: "ecuador.jpg",
+                facts: [
+                    "<b>Xích đạo:</b> Tên nước nghĩa là 'Xích đạo', nơi bạn có thể đứng một chân ở Bắc bán cầu, một chân ở Nam bán cầu.",
+                    "<b>Rùa khổng lồ:</b> Quần đảo Galapagos là nhà của những chú rùa khổng lồ sống trăm tuổi.",
+                    "<b>Chuối:</b> Là nước xuất khẩu chuối lớn nhất thế giới, chuối ở đây rất ngọt.",
+                    "<b>Núi lửa:</b> Ngọn núi Chimborazo là điểm xa tâm Trái đất nhất (gần Mặt trời nhất).",
+                    "<b>Sô-cô-la:</b> Được coi là nơi sản xuất sô-cô-la đen ngon nhất thế giới."
+                ]
+            },
+            {
+                id: 8, name: "Bolivia", image: "bolivia.jpg",
+                facts: [
+                    "<b>Cánh đồng muối:</b> Salar de Uyuni là cánh đồng muối lớn nhất thế giới, soi bóng như tấm gương khổng lồ.",
+                    "<b>Cá heo hồng:</b> Ở sông Amazon đoạn qua Bolivia có loài cá heo màu hồng rất thông minh.",
+                    "<b>Thủ đô cao:</b> La Paz là thủ đô nằm ở độ cao cao nhất thế giới so với mực nước biển.",
+                    "<b>Không biển:</b> Là quốc gia nằm sâu trong lục địa, không có đường bờ biển nào.",
+                    "<b>Trang phục:</b> Phụ nữ bản địa thường đội mũ phớt (Bowler hat) rất đặc trưng."
+                ]
+            },
+            {
+                id: 9, name: "Paraguay", image: "paraguay.jpg",
+                facts: [
+                    "<b>Trái tim:</b> Được gọi là 'Trái tim của Nam Mỹ' vì nằm ngay chính giữa châu lục.",
+                    "<b>Đập nước:</b> Có đập thủy điện Itaipu là một trong những đập lớn nhất thế giới.",
+                    "<b>Ngôn ngữ:</b> Hầu hết người dân đều nói hai thứ tiếng: Tây Ban Nha và tiếng thổ dân Guaraní.",
+                    "<b>Ren:</b> Nổi tiếng với nghệ thuật đan ren Ñandutí (mạng nhện) tinh xảo.",
+                    "<b>Trà lạnh:</b> Người dân cực kỳ thích uống trà Yerba Mate pha với nước đá lạnh."
+                ]
+            },
+            {
+                id: 10, name: "Uruguay", image: "uruguay.jpg",
+                facts: [
+                    "<b>World Cup:</b> Là quốc gia đầu tiên đăng cai và vô địch World Cup bóng đá (năm 1930).",
+                    "<b>Bò:</b> Số lượng bò ở đây còn nhiều hơn số lượng người dân gấp 3-4 lần.",
+                    "<b>Quốc ca:</b> Có bài quốc ca dài nhất thế giới (kéo dài tới 6 phút).",
+                    "<b>Máy tính:</b> Là quốc gia đầu tiên trên thế giới phát máy tính xách tay miễn phí cho mọi học sinh tiểu học.",
+                    "<b>Bình yên:</b> Được mệnh danh là đất nước bình yên và an toàn nhất Nam Mỹ."
+                ]
+            },
+            {
+                id: 11, name: "Guyana", image: "guyana.jpg",
+                facts: [
+                    "<b>Tiếng Anh:</b> Là quốc gia duy nhất ở Nam Mỹ dùng tiếng Anh là ngôn ngữ chính thức.",
+                    "<b>Thác nước:</b> Thác Kaieteur là thác nước đơn (một tầng) lớn nhất thế giới theo lượng nước.",
+                    "<b>Rừng rậm:</b> Hơn 80% diện tích đất nước được bao phủ bởi rừng nguyên sinh rậm rạp.",
+                    "<b>Tên gọi:</b> Tên nước có nghĩa là 'Vùng đất của nhiều dòng nước'.",
+                    "<b>Đường:</b> Đường Demerara nổi tiếng thế giới được sản xuất tại đây."
+                ]
+            },
+            {
+                id: 12, name: "Suriname", image: "suriname.jpg",
+                facts: [
+                    "<b>Nhỏ nhất:</b> Là quốc gia có diện tích nhỏ nhất ở Nam Mỹ.",
+                    "<b>Rừng:</b> Là quốc gia có tỷ lệ rừng bao phủ cao nhất thế giới (trên 90%).",
+                    "<b>Đa văn hóa:</b> Có sự pha trộn văn hóa độc đáo từ Ấn Độ, Phi, Java, Hoa và Âu.",
+                    "<b>Nhà gỗ:</b> Thủ đô Paramaribo nổi tiếng với những ngôi nhà gỗ cổ kính của Hà Lan.",
+                    "<b>Cóc:</b> Là nơi sinh sống của loài Cóc Pipa, nuôi con trên lưng rất kỳ lạ."
+                ]
+            },
+
+            // --- CHÂU ĐẠI DƯƠNG (OCEANIA) ---
+            {
+                id: 13, name: "Australia (Úc)", image: "australia.jpg",
+                facts: [
+                    "<b>Chuột túi:</b> Là quê hương của Kangaroo và gấu Koala dễ thương chỉ ăn lá khuynh diệp.",
+                    "<b>San hô:</b> Rạn san hô Great Barrier là hệ thống san hô lớn nhất thế giới, thấy được từ vũ trụ.",
+                    "<b>Nhà hát:</b> Nhà hát Con Sò (Opera Sydney) là biểu tượng kiến trúc nổi tiếng toàn cầu.",
+                    "<b>Cừu:</b> Số lượng cừu ở Úc còn đông hơn cả số lượng người dân.",
+                    "<b>Sa mạc:</b> Phần lớn diện tích nước Úc là vùng hoang mạc màu đỏ (Outback)."
+                ]
+            },
+            {
+                id: 14, name: "New Zealand", image: "new-zealand.jpg",
+                facts: [
+                    "<b>Chim Kiwi:</b> Loài chim Kiwi không biết bay là biểu tượng quốc gia (người dân cũng tự gọi mình là Kiwi).",
+                    "<b>Đầu tiên:</b> Là nước đầu tiên trên thế giới đón ánh bình minh của ngày mới.",
+                    "<b>Phim ảnh:</b> Phong cảnh hùng vĩ ở đây được chọn để quay bộ phim 'Chúa tể những chiếc nhẫn'.",
+                    "<b>Bóng bầu dục:</b> Đội tuyển All Blacks với điệu nhảy chiến trận Haka là nỗi khiếp sợ của đối thủ.",
+                    "<b>Cừu:</b> Trung bình mỗi người dân New Zealand sở hữu tới 6 con cừu."
+                ]
+            },
+            {
+                id: 15, name: "Fiji", image: "fiji.jpg",
+                facts: [
+                    "<b>333 Đảo:</b> Quốc gia này được tạo thành từ 333 hòn đảo nhiệt đới tuyệt đẹp.",
+                    "<b>Bula:</b> Mọi người chào nhau bằng từ 'Bula!' với nụ cười tươi rói.",
+                    "<b>Đi bộ lửa:</b> Có truyền thống đi chân trần trên than hồng nóng rực mà không bị bỏng.",
+                    "<b>Nước:</b> Nước khoáng đóng chai Fiji nổi tiếng thế giới về độ tinh khiết.",
+                    "<b>Múi giờ:</b> Từng nằm trên đường đổi ngày nên có thể 'du hành thời gian' bằng cách đi qua ranh giới."
+                ]
+            },
+            {
+                id: 16, name: "Papua New Guinea", image: "papua.jpg",
+                facts: [
+                    "<b>Ngôn ngữ:</b> Là quốc gia có nhiều ngôn ngữ nhất thế giới (hơn 800 thứ tiếng khác nhau).",
+                    "<b>Bộ lạc:</b> Còn rất nhiều bộ lạc sống trong rừng sâu giữ nguyên nếp sống cổ xưa.",
+                    "<b>Chim Thiên Đường:</b> Loài chim Thiên đường với bộ lông sặc sỡ tuyệt đẹp là biểu tượng quốc gia.",
+                    "<b>Kangaroo cây:</b> Có loài Kangaroo sống trên cây thay vì nhảy dưới đất.",
+                    "<b>Tiền vỏ sò:</b> Một số nơi người dân vẫn dùng vỏ sò để trao đổi mua bán như tiền."
+                ]
+            },
+            {
+                id: 17, name: "Quần đảo Solomon", image: "solomon.jpg",
+                facts: [
+                    "<b>Lặn biển:</b> Là thiên đường lặn biển với nhiều xác tàu chiến, máy bay từ thời Thế chiến II.",
+                    "<b>Đảo Đầu Lâu:</b> Có hòn đảo lưu giữ hàng trăm hộp sọ của các tù trưởng ngày xưa.",
+                    "<b>Núi lửa:</b> Có ngọn núi lửa Kavachi hoạt động ngầm dưới mặt biển rất độc đáo.",
+                    "<b>Cá heo:</b> Người dân ở đây có khả năng gọi cá heo vào bờ bằng cách vỗ đá dưới nước.",
+                    "<b>Rừng:</b> Phần lớn các đảo vẫn được bao phủ bởi rừng rậm nhiệt đới hoang sơ."
+                ]
+            },
+            {
+                id: 18, name: "Vanuatu", image: "vanuatu.jpg",
+                facts: [
+                    "<b>Nhảy bungee:</b> Tục lệ buộc dây leo vào chân nhảy từ tháp gỗ cao của thổ dân là khởi nguồn của trò Bungee.",
+                    "<b>Bưu điện:</b> Có bưu điện nằm dưới đáy biển duy nhất trên thế giới, bạn phải lặn xuống để gửi thư.",
+                    "<b>Núi lửa:</b> Núi lửa Yasur là một trong những núi lửa dễ tiếp cận nhất thế giới.",
+                    "<b>Hạnh phúc:</b> Từng được bình chọn là nơi có người dân hạnh phúc nhất hành tinh.",
+                    "<b>Ngôn ngữ:</b> Ngôn ngữ Bislama ở đây là một dạng tiếng Anh giản lược rất thú vị."
+                ]
+            },
+            {
+                id: 19, name: "Liên bang Micronesia", image: "micronesia.jpg",
+                facts: [
+                    "<b>Tiền đá:</b> Đảo Yap nổi tiếng với những đồng tiền bằng đá khổng lồ, nặng hàng tấn.",
+                    "<b>600 đảo:</b> Quốc gia bao gồm hơn 600 hòn đảo nhỏ xíu rải rác khắp đại dương.",
+                    "<b>Thành phố nổi:</b> Nan Madol là thành phố cổ bằng đá được xây dựng trên các rạn san hô.",
+                    "<b>Màu cờ:</b> 4 ngôi sao trên cờ tượng trưng cho 4 nhóm đảo chính của đất nước.",
+                    "<b>Hàng hải:</b> Người dân là những bậc thầy đi biển, định hướng bằng sao trời mà không cần la bàn."
+                ]
+            },
+            {
+                id: 20, name: "Kiribati", image: "kiribati.jpg",
+                facts: [
+                    "<b>Năm mới:</b> Là quốc gia bước sang năm mới sớm nhất thế giới mỗi ngày.",
+                    "<b>Trải dài:</b> Là nước duy nhất nằm trên cả 4 bán cầu (Bắc, Nam, Đông, Tây).",
+                    "<b>Biến mất:</b> Đất nước có nguy cơ bị nước biển nhấn chìm hoàn toàn do biến đổi khí hậu.",
+                    "<b>Dừa:</b> Cây dừa là nguồn sống chính, người dân dùng dừa làm mọi thứ từ thức ăn đến áo giáp.",
+                    "<b>Câu cá:</b> Câu cá là kỹ năng sinh tồn quan trọng nhất của mọi đứa trẻ ở đây."
+                ]
+            },
+            {
+                id: 21, name: "Quần đảo Marshall", image: "marshall.jpg",
+                facts: [
+                    "<b>San hô:</b> Toàn bộ đất nước được tạo thành từ các đảo san hô vòng (Atoll).",
+                    "<b>Cá mập:</b> Đã thành lập khu bảo tồn cá mập lớn nhất thế giới.",
+                    "<b>Bản đồ que:</b> Người xưa dùng những chiếc que và vỏ ốc để làm bản đồ hải trình trên biển.",
+                    "<b>Hạt nhân:</b> Trong quá khứ từng là nơi thử nghiệm hạt nhân, nay là điểm lặn biển hấp dẫn.",
+                    "<b>Thủ công:</b> Phụ nữ ở đây đan những chiếc túi và quạt từ lá dứa rất khéo léo."
+                ]
+            },
+            {
+                id: 22, name: "Nauru", image: "nauru.jpg",
+                facts: [
+                    "<b>Nhỏ bé:</b> Là quốc đảo cộng hòa nhỏ nhất thế giới (bạn có thể đi bộ hết cả nước trong vài giờ).",
+                    "<b>Không thủ đô:</b> Là quốc gia duy nhất trên thế giới không có thủ đô chính thức.",
+                    "<b>Phân chim:</b> Từng rất giàu có nhờ khai thác phân chim hóa thạch (phosphate).",
+                    "<b>Béo phì:</b> Người dân ở đây có tỷ lệ béo phì cao nhất thế giới.",
+                    "<b>Một đảo:</b> Cả đất nước chỉ là một hòn đảo duy nhất hình củ khoai tây."
+                ]
+            },
+            {
+                id: 23, name: "Palau", image: "palau.jpg",
+                facts: [
+                    "<b>Hồ sứa:</b> Có hồ nước mặn chứa hàng triệu con sứa vàng không có nọc độc, bơi cùng rất an toàn.",
+                    "<b>Cam kết:</b> Khách du lịch phải ký 'Lời thề Palau' trong hộ chiếu hứa bảo vệ môi trường khi đến đây.",
+                    "<b>Mẫu hệ:</b> Trong xã hội Palau, phụ nữ là người quyết định các vấn đề quan trọng.",
+                    "<b>Đá vôi:</b> Nổi tiếng với hàng trăm hòn đảo đá vôi hình nấm mọc lên từ biển xanh ngọc.",
+                    "<b>Kỳ quan:</b> Được mệnh danh là một trong 7 kỳ quan dưới nước của thế giới."
+                ]
+            },
+            {
+                id: 24, name: "Samoa", image: "samoa.jpg",
+                facts: [
+                    "<b>Hình xăm:</b> Nghệ thuật xăm mình truyền thống (Tatau) rất quan trọng và đau đớn.",
+                    "<b>Nhà Fale:</b> Nhà truyền thống không có tường, chỉ có mái che và cột gỗ để đón gió mát.",
+                    "<b>Thời gian:</b> Từng đổi múi giờ, bỏ qua một ngày thứ 6 để giao thương thuận lợi hơn với Úc.",
+                    "<b>Bóng bầu dục:</b> Người dân cực kỳ đam mê bóng bầu dục, trẻ em chơi từ khi mới biết đi.",
+                    "<b>Văn học:</b> Là nơi nhà văn Robert Louis Stevenson (tác giả Đảo Giấu Vàng) chọn sống cuối đời."
+                ]
+            },
+            {
+                id: 25, name: "Tonga", image: "tonga.jpg",
+                facts: [
+                    "<b>Vương quốc:</b> Là chế độ quân chủ (có Vua) duy nhất còn tồn tại ở Thái Bình Dương.",
+                    "<b>Chưa từng:</b> Là quốc gia duy nhất ở khu vực này chưa bao giờ bị thực dân đô hộ hoàn toàn.",
+                    "<b>Cá voi:</b> Là nơi hiếm hoi bạn có thể bơi lặn cùng cá voi lưng gù khổng lồ.",
+                    "<b>Lỗ phun nước:</b> Bờ biển có hàng trăm lỗ phun nước tự nhiên bắn cao như vòi rồng.",
+                    "<b>Ngày Chủ nhật:</b> Chủ nhật là ngày nghỉ tuyệt đối, mọi hoạt động kinh doanh đều dừng lại."
+                ]
+            },
+            {
+                id: 26, name: "Tuvalu", image: "tuvalu.jpg",
+                facts: [
+                    "<b>Ít khách:</b> Là một trong những quốc gia có ít khách du lịch đến thăm nhất thế giới.",
+                    "<b>Tên miền:</b> Kiếm được rất nhiều tiền nhờ bán tên miền internet '.tv' cho các kênh truyền hình.",
+                    "<b>Sân bay:</b> Đường băng sân bay cũng là sân chơi thể thao của người dân khi không có máy bay.",
+                    "<b>Biến đổi khí hậu:</b> Đang tích cực vận động thế giới bảo vệ môi trường vì nước biển dâng.",
+                    "<b>Kho báu:</b> Người dân cất giữ tem thư quý hiếm như những kho báu quốc gia."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-orange-200 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-orange-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-amber-700 mb-3 uppercase border-b border-amber-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-amber-50 p-3 rounded-lg border border-amber-100 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-amber-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-yellow-100 to-amber-200 p-6 rounded-full shadow-lg shadow-yellow-200">
+                        <i data-lucide="crown" class="w-20 h-20 text-yellow-600 fill-yellow-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-amber-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Quốc Gia Khu Vực Châu Nam Mỹ & Châu Úc!
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4 w-full items-center mt-2">
+                         <a href="https://catalog.zalo.me/?cid=Cj7DJZsJd0quribUCkIP5roWjaPPcESPLAtCHYAUbnDTeA5SCfhpS0" 
+                           target="_blank"
+                           class="w-full max-w-xs flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100">
+                            <i data-lucide="gift" class="w-5 h-5"></i>
+                            Sản phẩm cho sức khoẻ Mẹ & Bé 
+                        </a>
+
+                        <a href="https://catalog.zalo.me/?pid=e8cce7d8f79d1ec3478c" 
+                           target="_blank"
+                           class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-200 transition-all hover:scale-105 transform border border-blue-400">
+                            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                            Sản phẩm phát triển trí tuệ & Cảm xúc cho bé
+                        </a>
+                    </div>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-amber-600 hover:text-amber-800 font-semibold text-sm mt-4 bg-amber-50 px-5 py-2 rounded-full transition-colors border border-amber-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
