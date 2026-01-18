@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Top 10 Thành Phố Xanh Mát</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Top 10 thành phố nhiều cây xanh nhất trên thế giới" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/73/df/b7/73dfb78d667cd8c900f6d54a9de5ca38.jpg" />
+    <meta property="og:type" content="https://mekeconnghe.github.io/vongquanhthegioi/thanhphocayxanh/" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-slate-800 flex items-center justify-center gap-2">
+            <i data-lucide="rocket" class="w-6 h-6 md:w-8 md:h-8 text-orange-500"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-slate-600 uppercase tracking-widest border-b-2 border-slate-200 inline-block pb-1">
+            Top 10 Thành Phố Nhiều Cây Xanh Nhất Thế Giới
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-slate-300 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map-pin" class="w-3 h-3 text-cyan-500"></i>
+                            <span id="counter-text">1/10</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-cyan-500 rounded-full progress-transition" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white px-4 py-3 rounded-xl shadow-md shadow-cyan-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Singapore, Singapore", image: "singapore_green.jpg",
+                facts: [
+                    "<b>Chiếc Áo Lá Cây:</b> Những tòa nhà ở đây không sơn màu bình thường mà được 'mặc' một lớp áo bằng cây xanh từ chân lên tới đỉnh.",
+                    "<b>Vườn Trên Mây:</b> Bé có thể đi thang máy lên tầng cao nhất và bước ra một khu vườn rợp bóng mát lơ lửng giữa trời.",
+                    "<b>Điều Hòa Tự Nhiên:</b> Nhờ có lớp cây bao phủ, các tòa nhà luôn mát rượi mà không cần bật quạt hay máy lạnh nhiều.",
+                    "<b>Tưới Cây Bằng Flycam:</b> Vì cây trồng quá cao, đôi khi người ta phải dùng những hệ thống tưới nước tự động như mưa rơi.",
+                    "<b>Tổ Chim Cao Tầng:</b> Những chú chim nhỏ không cần làm tổ trên cây dưới đất mà bay tít lên ban công nhà cao tầng để ở."
+                ]
+            },
+            {
+                id: 2, name: "Oslo, Na Uy", image: "oslo_forest.jpg",
+                facts: [
+                    "<b>Nhà Chơi Trốn Tìm:</b> Những ngôi nhà gỗ ở đây nằm ẩn mình sau các tán cây thông, nhìn xa như đang chơi trốn tìm với bé vậy.",
+                    "<b>Mùi Hương Giáng Sinh:</b> Khắp thành phố lúc nào cũng thoang thoảng mùi thơm của nhựa thông và gỗ, giống hệt mùi cây Noel.",
+                    "<b>Sóc Ghé Thăm Nhà:</b> Vì nhà nằm ngay trong rừng nên các bạn sóc nâu thường xuyên nhảy nhót trên mái nhà của người dân.",
+                    "<b>Cửa Sổ Nhìn Ra Hồ:</b> Chỉ cần mở cửa sổ ra là bé có thể nhìn thấy mặt hồ nước trong veo phản chiếu bóng cây xanh ngắt.",
+                    "<b>Gỗ Mộc Thân Thiện:</b> Người dân thích làm nhà bằng gỗ để hòa mình vào thiên nhiên, khiến ngôi nhà trông như một cái cây lớn."
+                ]
+            },
+            {
+                id: 3, name: "Sydney, Úc", image: "sydney_coast.jpg",
+                facts: [
+                    "<b>Thảm Cỏ Gặp Biển:</b> Có những bãi cỏ xanh mướt trải dài đến tận mép nước, bé có thể vừa nằm lăn trên cỏ vừa nghe tiếng sóng.",
+                    "<b>Picnic Ngắm Tàu:</b> Đây là nơi tuyệt nhất để cả nhà trải khăn ăn trưa và ngắm những con tàu khổng lồ đi qua trước mặt.",
+                    "<b>Gió Biển Mát Lạnh:</b> Gió thổi từ biển vào mang theo hơi nước mát rượi, làm những ngọn cỏ xanh cứ dập dờn múa lượn.",
+                    "<b>Hải Âu Bay Lượn:</b> Trong công viên này, các chú chim hải âu thường sà xuống bãi cỏ để chơi đùa cùng các bạn nhỏ.",
+                    "<b>Đường Chạy Ven Biển:</b> Bé có thể chạy bộ men theo bờ biển trên con đường rợp bóng cây mà không sợ nắng nóng."
+                ]
+            },
+            {
+                id: 4, name: "Vienna, Áo", image: "vienna_garden.jpg",
+                facts: [
+                    "<b>Hoa Hồng Khắp Nơi:</b> Bé sẽ lạc vào mê cung với hàng nghìn bông hoa hồng đủ màu sắc đang đua nhau tỏa hương thơm ngát.",
+                    "<b>Cây Cắt Tỉa Đẹp:</b> Những cái cây không mọc lộn xộn mà được các bác làm vườn cắt tỉa thành hình tròn, hình vuông rất ngộ nghĩnh.",
+                    "<b>Lối Đi Hoàng Gia:</b> Con đường rải sỏi trắng tinh tươm dẫn bé đi qua những vòm cây dây leo đẹp như trong truyện cổ tích.",
+                    "<b>Đài Phun Nước Cổ:</b> Giữa vườn hoa thường có những đài phun nước chạm khắc hình thiên thần, nước bắn tung tóe mát lạnh.",
+                    "<b>Ghế Đá Nghỉ Chân:</b> Dưới những tán cây cổ thụ được cắt tỉa gọn gàng là những chiếc ghế đá để bé ngồi ngắm hoa rơi."
+                ]
+            },
+            {
+                id: 5, name: "Curitiba, Brazil", image: "curitiba_park.jpg",
+                facts: [
+                    "<b>Rừng Trong Phố:</b> Thay vì các tòa nhà bê tông, thành phố này giữ lại những cánh rừng nhiệt đới rậm rạp ngay cạnh đường đi.",
+                    "<b>Vẹt Màu Sặc Sỡ:</b> Trên những tán cây giữa phố, bé dễ dàng nhìn thấy những chú vẹt đuôi dài đủ màu đang kêu 'quác quác'.",
+                    "<b>Lá Cây Khổng Lồ:</b> Có những loài cây nhiệt đới với chiếc lá to như cái ô, bé có thể đứng trú mưa dưới đó được luôn.",
+                    "<b>Không Khí Trong Lành:</b> Nhờ có 'lá phổi xanh' khổng lồ này mà không khí ở đây lúc nào cũng tươi mới, dễ chịu.",
+                    "<b>Dây Leo Chằng Chịt:</b> Những dây leo xanh mướt quấn quanh các thân cây cổ thụ tạo thành chiếc xích đu tự nhiên cho khỉ con."
+                ]
+            },
+            {
+                id: 6, name: "Vancouver, Canada", image: "vancouver_trees.jpg",
+                facts: [
+                    "<b>Cây To Hơn Nhà:</b> Những cây thông ở đây cao vút lên tận trời xanh, bé ngước mỏi cả cổ cũng chưa nhìn thấy ngọn cây.",
+                    "<b>Vòng Tay Khổng Lồ:</b> Thân cây to đến mức bé và 5 người bạn nữa nắm tay nhau mới ôm trọn được một vòng quanh gốc.",
+                    "<b>Lớp Áo Rêu Xanh:</b> Thân cây được phủ một lớp rêu xanh rì, sờ vào êm ái như tấm thảm nhung mềm mại.",
+                    "<b>Bóng Mát Khổng Lồ:</b> Khi đứng dưới gốc cây, bé sẽ thấy mát lạnh ngay lập tức vì tán cây che kín cả ánh mặt trời.",
+                    "<b>Cây Kể Chuyện:</b> Những cái cây này đã sống hàng trăm năm, già hơn cả ông bà cố của chúng mình đấy bé ạ."
+                ]
+            },
+            {
+                id: 7, name: "Helsinki, Phần Lan", image: "helsinki_berry.jpg",
+                facts: [
+                    "<b>Siêu Thị Tự Nhiên:</b> Bé đi dạo trong công viên mà cứ ngỡ lạc vào siêu thị trái cây vì có rất nhiều quả dại mọc ven đường.",
+                    "<b>Dâu Rừng Bé Xíu:</b> Những quả dâu rừng chỉ nhỏ bằng đầu ngón tay út, nấp dưới lá xanh nhưng ăn vào rất ngọt và thơm.",
+                    "<b>Tay Dính Màu Tím:</b> Khi hái những quả việt quất dại, ngón tay của bé sẽ bị nhuộm một màu tím ngắt rất vui mắt.",
+                    "<b>Nấm Nhỏ Xinh Xinh:</b> Sau cơn mưa, dưới gốc cây sẽ mọc lên những cây nấm nhỏ xíu đội mũ nâu trông rất đáng yêu.",
+                    "<b>Bữa Tiệc Của Chim:</b> Những bụi cây trĩu quả này cũng là nhà ăn yêu thích của các chú chim nhỏ trong thành phố."
+                ]
+            },
+            {
+                id: 8, name: "Prague, Cộng hòa Séc", image: "prague_hill.jpg",
+                facts: [
+                    "<b>Đồi Thơm Hương Hoa:</b> Cả ngọn đồi được trồng đầy hoa nhài và cây ăn quả, gió thổi qua mang theo mùi hương thơm phức.",
+                    "<b>Táo Mọc Ven Đường:</b> Bé có thể nhìn thấy những quả táo đỏ mọng treo lủng lẳng trên cành ngay bên cạnh lối đi bộ.",
+                    "<b>View Lâu Đài Cổ:</b> Từ trên đồi cây xanh này, bé nhìn xuống sẽ thấy những tòa lâu đài cổ kính hiện ra như trong phim hoạt hình.",
+                    "<b>Mùa Xuân Rực Rỡ:</b> Khi mùa xuân đến, cả ngọn đồi nở bung hoa trắng xóa như được phủ một lớp tuyết bông xốp.",
+                    "<b>Ong Bướm Mở Hội:</b> Vì có quá nhiều hoa thơm nên ong bướm bay về đây làm tổ, vo ve suốt cả ngày rất vui tai."
+                ]
+            },
+            {
+                id: 9, name: "Frankfurt, Đức", image: "frankfurt_belt.jpg",
+                facts: [
+                    "<b>Khăn Quàng Xanh:</b> Cây cối được trồng thành một vòng tròn khép kín bao quanh thành phố giống như chiếc khăn quàng cổ màu xanh.",
+                    "<b>Con Đường Bất Tận:</b> Bé có thể đi bộ dưới bóng cây mát rượi đi vòng quanh cả thành phố mà không bị nắng chiếu.",
+                    "<b>Bức Tường Chắn Gió:</b> Vành đai cây xanh dày đặc này giúp chắn gió lạnh và bụi bẩn, bảo vệ các ngôi nhà bên trong.",
+                    "<b>Sân Chơi Dài Dằng Dặc:</b> Khu vực này giống như một công viên kéo dài vô tận, nơi các bạn nhỏ tha hồ chạy nhảy nô đùa.",
+                    "<b>Cầu Nối Thiên Nhiên:</b> Vành đai xanh nối liền các khu rừng nhỏ lại với nhau, giúp các bạn thỏ và sóc đi chơi dễ dàng hơn."
+                ]
+            },
+            {
+                id: 10, name: "Melbourne, Úc", image: "melbourne_botanic.jpg",
+                facts: [
+                    "<b>Giường Cỏ Êm Ái:</b> Những bãi cỏ ở đây rộng thênh thang và êm như nệm, bé có thể nằm lăn ra ngắm mây bay thỏa thích.",
+                    "<b>Gốc Đa Khổng Lồ:</b> Có những cây cổ thụ rễ to trồi lên mặt đất, tạo thành những chiếc ghế tự nhiên cho bé ngồi nghỉ.",
+                    "<b>Bữa Trưa Ngoài Trời:</b> Các gia đình thường mang bánh mì và trái cây ra trải thảm ngồi ăn trưa ngay dưới bóng cây râm mát.",
+                    "<b>Chạy Mỏi Chân:</b> Công viên rộng đến mức bé chạy mỏi cả chân vẫn chưa đi hết được màu xanh của cỏ cây.",
+                    "<b>Hồ Nước Thiên Nga:</b> Giữa vườn cây xanh ngát là hồ nước tĩnh lặng, nơi những chú thiên nga đen thong thả bơi lội."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/22c55e/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-cyan-200 text-cyan-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-cyan-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-cyan-700 mb-3 uppercase border-b border-cyan-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-cyan-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-cyan-100 to-blue-200 p-6 rounded-full shadow-lg shadow-cyan-200">
+                        <i data-lucide="award" class="w-20 h-20 text-cyan-600 fill-cyan-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Thành Phố Nhiều Cây Xanh Nhất Trên Thế Giới!
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4 w-full items-center mt-2">
+                         <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                           target="_blank"
+                           class="w-full max-w-xs flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100">
+                            <i data-lucide="gift" class="w-5 h-5"></i>
+                            Sản phẩm cho sức khoẻ Mẹ & Bé 
+                        </a>
+
+                        <a href="https://catalog.zalo.me/?cid=CjBEIJkIcGf8hRv7C96N3Jcgmb16w-KODANFJaMGdsSijSy-8OJg4W" 
+                           target="_blank"
+                           class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-200 transition-all hover:scale-105 transform border border-blue-400">
+                            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                            Sản phẩm phát triển trí tuệ & Cảm xúc cho bé
+                        </a>
+                    </div>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-cyan-600 hover:text-cyan-800 font-semibold text-sm mt-4 bg-cyan-50 px-5 py-2 rounded-full transition-colors border border-cyan-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
