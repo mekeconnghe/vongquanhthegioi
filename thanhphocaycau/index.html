@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Khám Phá Thế Giới - Những Cây Cầu Kỳ Diệu</title>
+    
+    <meta property="og:title" content="Bộ Thẻ Khám Phá Vòng Quanh Thế Giới - Giúp bé phát triển tư duy, kích thích trí tưởng tượng" />
+    <meta property="og:description" content="Top 10 những cây cầu và thành phố độc đáo nhất thế giới" />
+    <meta property="og:image" content="https://i.pinimg.com/736x/b3/75/fb/b375fbe2ac1fab02038253af50919e1f.jpg" />
+    <meta property="og:type" content="https://mekeconnghe.github.io/vongquanhthegioi/thanhphocaycau/" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .progress-transition {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen font-sans text-gray-800 flex flex-col items-center py-4 px-3 md:py-6 md:px-4">
+
+    <div class="text-center mb-4 w-full space-y-2">
+        <h1 class="text-xl md:text-3xl font-bold text-slate-800 flex items-center justify-center gap-2">
+            <i data-lucide="rocket" class="w-6 h-6 md:w-8 md:h-8 text-orange-500"></i>
+            Khám Phá Vòng Quanh Thế Giới
+        </h1>
+        <div class="text-sm md:text-xl font-semibold text-slate-600 uppercase tracking-widest border-b-2 border-slate-200 inline-block pb-1">
+            Top 10 Cây Cầu & Thành Phố Độc Đáo
+        </div>
+        
+        <div class="pt-1">
+            <a href="https://zalo.me/g/hirmwg741" target="_blank" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-4 py-2 rounded-full text-xs md:text-sm font-bold shadow-md transition-all border-2 border-white ring-2 ring-pink-100">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Tham Gia Cộng đồng Mẹ Kể Con Nghe
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg perspective-1000 group flex-grow flex flex-col justify-center mb-4">
+        <div 
+            id="flashcard"
+            class="relative w-full bg-white rounded-2xl shadow-xl overflow-hidden cursor-pointer transition-all duration-300 transform active:scale-[0.99] border-b-4 border-slate-300 noselect"
+            onclick="handleCardClick()"
+        >
+            <div class="absolute inset-0 flex flex-col h-full relative">
+                
+                <div id="card-header" class="flex-none flex flex-col w-full px-3 pt-2 mb-0 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="flex items-center gap-1 text-gray-400 font-bold text-[10px]">
+                            <i data-lucide="map-pin" class="w-3 h-3 text-cyan-500"></i>
+                            <span id="counter-text">1/10</span>
+                        </div>
+                        <span id="side-indicator" class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-bold text-[10px] uppercase">
+                            Hình ảnh
+                        </span>
+                    </div>
+                    <div class="w-full h-0.5 bg-gray-100 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-cyan-500 rounded-full progress-transition" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <div id="card-content" class="flex-grow flex flex-col items-center justify-center text-center w-full">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full max-w-lg flex gap-3 mb-4">
+        <button 
+            onclick="prevCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 px-4 py-3 rounded-xl shadow-sm border border-gray-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            <i data-lucide="chevron-left" class="w-5 h-5 md:w-6 md:h-6"></i> Trước
+        </button>
+        
+        <button 
+            id="btn-next"
+            onclick="nextCard()"
+            class="flex-1 flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-700 active:bg-cyan-800 text-white px-4 py-3 rounded-xl shadow-md shadow-cyan-200 font-bold text-base md:text-lg transition-colors touch-manipulation"
+        >
+            Sau <i data-lucide="chevron-right" class="w-5 h-5 md:w-6 md:h-6"></i>
+        </button>
+    </div>
+
+    <script>
+        const dataSources = [
+            {
+                id: 1, name: "Hamburg, Đức", image: "hamburg_bridges.jpg",
+                facts: [
+                    "<b>Thành Phố Mê Cung:</b> Hamburg giống như một mê cung nước khổng lồ với hơn 2.500 cây cầu, nhiều hơn bất kỳ thành phố nào trên thế giới.",
+                    "<b>Những Cây Cầu Nhí:</b> Hầu hết các cây cầu ở đây đều nhỏ xinh, cong cong bắc qua các con kênh hẹp chứ không to lớn khổng lồ.",
+                    "<b>Giao Thông Dưới Nước:</b> Thay vì đi ô tô trên đường nhựa, bé có thể ngồi thuyền chui qua dưới gầm cầu để đi chơi khắp nơi.",
+                    "<b>Nhà Bên Sông:</b> Các ngôi nhà gạch đỏ được xây ngay sát mép nước, các cây cầu nối liền nhà này sang nhà khác rất tiện lợi.",
+                    "<b>Nhiều Hơn Cả Venice:</b> Mọi người hay nhắc đến Venice, nhưng Hamburg mới là 'vua' về số lượng cầu, nhiều hơn cả Venice và Amsterdam cộng lại."
+                ]
+            },
+            {
+                id: 2, name: "Đà Nẵng, Việt Nam", image: "danang_dragon.jpg",
+                facts: [
+                    "<b>Rồng Khổng Lồ:</b> Cây cầu là một chú rồng vàng rực rỡ dài ơi là dài, đang uốn lượn bay trên mặt sông Hàn trong xanh.",
+                    "<b>Rồng Phun Lửa:</b> Vào tối thứ 7 và Chủ nhật, chú rồng này sẽ há miệng phun ra những quầng lửa đỏ rực rất ngoạn mục.",
+                    "<b>Rồng Phun Mưa:</b> Sau khi phun lửa, chú rồng tinh nghịch sẽ phun nước mát rượi làm ướt sũng những ai đứng quá gần.",
+                    "<b>Vảy Rồng Đổi Màu:</b> Buổi tối, toàn thân chú rồng được thắp đèn LED, vảy rồng chuyển từ màu vàng sang xanh, tím liên tục.",
+                    "<b>Mắt Rồng Hình Trái Tim:</b> Nếu bé nhìn kỹ, mắt của chú rồng được tạo hình trái tim rất đáng yêu đấy."
+                ]
+            },
+            {
+                id: 3, name: "San Francisco, Mỹ", image: "sf_goldengate.jpg",
+                facts: [
+                    "<b>Dải Lụa Cam:</b> Dù tên là 'Cổng Vàng' nhưng cầu lại được sơn màu cam rực rỡ để nổi bật giữa bầu trời và biển xanh.",
+                    "<b>Chơi Trốn Tìm:</b> Thành phố này rất hay có sương mù, làm cây cầu thoắt ẩn thoắt hiện như đang chơi trốn tìm với bé.",
+                    "<b>Cổng Vào Thành Phố:</b> Hai toà tháp cao vút của cầu giống như một cánh cổng khổng lồ chào đón tàu bè đi vào vịnh.",
+                    "<b>Dây Cáp Khổng Lồ:</b> Hai sợi dây cáp chính to như thân cây cổ thụ, giữ chặt lấy cầu để xe cộ đi lại an toàn.",
+                    "<b>Tầm Nhìn Trên Cao:</b> Đi trên cầu, bé sẽ nhìn thấy biển Thái Bình Dương mênh mông ngay dưới chân mình."
+                ]
+            },
+            {
+                id: 4, name: "London, Anh", image: "london_towerbridge.jpg",
+                facts: [
+                    "<b>Lâu Đài Nổi:</b> Nhìn từ xa, cây cầu trông hệt như một toà lâu đài cổ tích với hai ngọn tháp đá uy nghiêm mọc lên từ giữa sông.",
+                    "<b>Cây Cầu Biết Tách Đôi:</b> Khi có tàu lớn đi qua, mặt cầu sẽ từ từ tách ra làm đôi và dựng đứng lên như hai cánh tay khổng lồ.",
+                    "<b>Ưu Tiên Tàu Bè:</b> Dù xe cộ đông đúc đến đâu, khi tàu đến, tất cả đều phải dừng lại chờ cầu mở ra cho tàu đi trước.",
+                    "<b>Lối Đi Trên Trời:</b> Ở trên đỉnh hai ngọn tháp có một hành lang kính, giúp bé đi bộ và nhìn thấy xe cộ bé xíu bên dưới.",
+                    "<b>Cỗ Máy Khổng Lồ:</b> Bên trong tháp cầu là hệ thống máy móc to lớn giúp nâng cả con đường nặng trịch lên cao dễ dàng."
+                ]
+            },
+            {
+                id: 5, name: "Venice, Ý", image: "venice_sighs.jpg",
+                facts: [
+                    "<b>Cây Cầu Có Mái Nhà:</b> Khác với những cây cầu lộ thiên, Cầu Than Thở là một hành lang kín mít, có tường và mái che bằng đá.",
+                    "<b>Cửa Sổ Tí Hon:</b> Trên cầu có những ô cửa sổ nhỏ xíu đan lưới sắt, là nơi duy nhất để nhìn ngắm bầu trời bên ngoài.",
+                    "<b>Cầu Nối Hai Tòa Nhà:</b> Cây cầu treo lơ lửng giữa không trung, nối liền Dinh Tổng Trấn lộng lẫy và nhà tù cũ kỹ.",
+                    "<b>Thuyền Gondola:</b> Các chú lái thuyền Gondola thường chèo thuyền trôi nhẹ nhàng ngay dưới gầm cây cầu lãng mạn này.",
+                    "<b>Soi Bóng Dòng Kênh:</b> Cây cầu đá trắng muốt soi bóng xuống dòng nước xanh ngọc bích tạo nên một bức tranh tuyệt đẹp."
+                ]
+            },
+            {
+                id: 6, name: "Pittsburgh, Mỹ", image: "pittsburgh_yellow.jpg",
+                facts: [
+                    "<b>Thành Phố Lego:</b> Các cây cầu ở đây được sơn màu vàng tươi roi rói, nhìn từ xa trông như một bộ đồ chơi xếp hình khổng lồ.",
+                    "<b>Ba Chị Em Sinh Ba:</b> Có ba cây cầu nằm cạnh nhau giống hệt nhau về hình dáng và màu sắc, được gọi là 'Ba Chị Em'.",
+                    "<b>Màu Vàng May Mắn:</b> Màu vàng rực rỡ của cầu tượng trưng cho sự vui vẻ và nổi bật hẳn lên giữa dòng sông xanh thẫm.",
+                    "<b>Thành Phố Của Thép:</b> Vì Pittsburgh nổi tiếng về luyện kim nên những cây cầu này được làm từ những thanh thép siêu cứng cáp.",
+                    "<b>Cầu Nối Những Dòng Sông:</b> Những chiếc cầu vàng này bắc qua nơi giao nhau của ba con sông lớn, tạo nên cảnh tượng rất hùng vĩ."
+                ]
+            },
+            {
+                id: 7, name: "Sydney, Úc", image: "sydney_harbour.jpg",
+                facts: [
+                    "<b>Móc Áo Khổng Lồ:</b> Người dân ở đây gọi vui cây cầu là 'Cái Móc Áo' vì hình dáng vòm cong y hệt chiếc móc treo quần áo của mẹ.",
+                    "<b>Leo Núi Trên Cầu:</b> Đây là cây cầu đặc biệt cho phép các cô chú dũng cảm leo bộ lên tận đỉnh vòm cao nhất để ngắm cảnh.",
+                    "<b>Cầu Vồng Bằng Thép:</b> Cây cầu như một chiếc cầu vồng màu xám bạc vắt ngang qua cảng biển xanh ngắt đầy nắng.",
+                    "<b>Pháo Hoa Năm Mới:</b> Mỗi dịp Tết, pháo hoa sẽ được bắn ra từ chính vòm cầu này, tạo thành thác ánh sáng rực rỡ.",
+                    "<b>Vững Chãi Trước Biển:</b> Cây cầu to lớn và nặng trịch đứng sừng sững giữa biển khơi, không sợ gió bão."
+                ]
+            },
+            {
+                id: 8, name: "New York, Mỹ", image: "nyc_brooklyn.jpg",
+                facts: [
+                    "<b>Mạng Nhện Khổng Lồ:</b> Những sợi dây cáp chằng chịt đan chéo nhau giữ lấy thân cầu trông hệt như một mạng nhện khổng lồ.",
+                    "<b>Cổng Đá Cổ Kính:</b> Hai tháp cầu được xây bằng đá tảng to lớn, trông như hai cánh cổng thành cổ xưa giữa thành phố hiện đại.",
+                    "<b>Đường Đi Riêng Biệt:</b> Xe ô tô chạy ở dưới, còn bé và người đi bộ sẽ được đi trên một sàn gỗ lát cao hơn hẳn, rất an toàn.",
+                    "<b>Dẫn Vào Rừng Bê Tông:</b> Đi hết cây cầu, bé sẽ bước thẳng vào khu rừng những toà nhà chọc trời cao vút của New York.",
+                    "<b>Sợi Dây Thép Đầu Tiên:</b> Đây là cây cầu treo đầu tiên trên thế giới sử dụng dây thép bện lại, cực kỳ chắc chắn."
+                ]
+            },
+            {
+                id: 9, name: "Prague, Séc", image: "prague_charles.jpg",
+                facts: [
+                    "<b>Bảo Tàng Ngoài Trời:</b> Đi trên cầu mà cứ ngỡ đang đi trong bảo tàng vì hai bên thành cầu có rất nhiều bức tượng điêu khắc.",
+                    "<b>Các Vị Thần Đứng Gác:</b> 30 bức tượng các vị thánh đứng uy nghiêm hai bên như những người lính gác bảo vệ cây cầu cổ.",
+                    "<b>Không Khói Bụi:</b> Cầu Charles cấm xe ô tô, chỉ dành riêng cho người đi bộ nên bé có thể chạy nhảy thoải mái.",
+                    "<b>Chạm Tay May Mắn:</b> Có một số bức tượng màu vàng óng do được nhiều người chạm tay vào để cầu mong sự may mắn.",
+                    "<b>Cầu Đá Cổ Xưa:</b> Cây cầu được xây hoàn toàn bằng những tảng đá lớn từ ngày xưa, mang màu sắc trầm mặc và huyền bí."
+                ]
+            },
+            {
+                id: 10, name: "Istanbul, Thổ Nhĩ Kỳ", image: "istanbul_bosphorus.jpg",
+                facts: [
+                    "<b>Bước Chân Thần Kỳ:</b> Đây là cây cầu kỳ diệu nhất thế giới, bé chỉ cần đi qua cầu là đã đi từ Châu Á sang Châu Âu rồi.",
+                    "<b>Cầu Nối Hai Lục Địa:</b> Cây cầu dài thật dài vắt ngang eo biển Bosphorus, nối liền hai mảnh đất khổng lồ lại với nhau.",
+                    "<b>Ngắm Hai Thế Giới:</b> Đứng trên cầu, bé có thể nhìn thấy nhà cửa của Châu Á ở bên này và phố xá của Châu Âu ở bên kia.",
+                    "<b>Biển Xanh Dưới Chân:</b> Dưới gầm cầu là dòng nước biển xanh thẫm với rất nhiều tàu bè chở hàng qua lại tấp nập.",
+                    "<b>Sợi Chỉ Nối Liền:</b> Nhìn từ trên cao, cây cầu như một sợi chỉ mỏng manh may liền hai lục địa lại thành một."
+                ]
+            }
+        ];
+
+        // --- State ---
+        let currentIndex = 0;
+        let isFlipped = false;
+        let isEndScreen = false;
+
+        // --- DOM Elements ---
+        const contentEl = document.getElementById('card-content');
+        const cardHeader = document.getElementById('card-header');
+        const counterText = document.getElementById('counter-text');
+        const progressBar = document.getElementById('progress-bar');
+        const indicatorEl = document.getElementById('side-indicator');
+        const btnNext = document.getElementById('btn-next');
+
+        // --- Functions ---
+
+        function renderCard() {
+            if (isEndScreen) {
+                renderEndScreen();
+                return;
+            }
+
+            // Reset UI states
+            cardHeader.style.display = 'flex';
+            
+            const currentCard = dataSources[currentIndex];
+            
+            // Cập nhật Thanh tiến trình & Số đếm
+            const progressPercent = ((currentIndex + 1) / dataSources.length) * 100;
+            counterText.textContent = `${currentIndex + 1}/${dataSources.length}`;
+            progressBar.style.width = `${progressPercent}%`;
+
+            
+            if (isFlipped) {
+                indicatorEl.textContent = 'Thông tin';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-cyan-100 text-cyan-800 font-bold text-[10px] uppercase';
+            } else {
+                indicatorEl.textContent = 'Ảnh';
+                indicatorEl.className = 'px-2 py-0.5 rounded bg-slate-100 text-slate-800 font-bold text-[10px] uppercase';
+            }
+
+            // Nút Next logic
+            btnNext.innerHTML = currentIndex === dataSources.length - 1 ? 'Hoàn thành <i data-lucide="check" class="w-5 h-5"></i>' : 'Sau <i data-lucide="chevron-right" class="w-5 h-5"></i>';
+
+            let html = '';
+
+            if (!isFlipped) {
+                // MẶT TRƯỚC:
+                html += `<div class="animate-fade-in w-full flex flex-col">`;
+                
+                // PHẦN ẢNH:
+                html += `
+                    <div class="relative w-full bg-white">
+                         <img 
+                            src="${currentCard.image}" 
+                            alt="${currentCard.name}" 
+                            class="w-full h-auto block"
+                            onerror="this.src='https://placehold.co/600x400/orange/white?text=${encodeURIComponent(currentCard.name)}';"
+                         >
+                    </div>
+                `;
+                
+                // NÚT LẬT:
+                html += `
+                    <div class="w-full flex justify-center py-3 bg-white border-t border-gray-100">
+                        <div class="inline-flex items-center gap-1.5 bg-white border border-cyan-200 text-cyan-600 px-4 py-1.5 rounded-full text-xs font-bold shadow-sm animate-pulse">
+                            <i data-lucide="rotate-cw" class="w-3 h-3 text-cyan-500"></i>
+                            Lật mặt sau để xem 5 sự thật thú vị
+                        </div>
+                    </div>
+                `;
+                html += `</div>`;
+            } else {
+                // MẶT SAU
+                html += `<div class="animate-fade-in w-full h-full flex flex-col px-4 pb-6 py-4">`;
+                
+                html += `<h3 class="flex-none text-xl font-bold text-cyan-700 mb-3 uppercase border-b border-cyan-200 pb-2 w-full text-center">${currentCard.name}</h3>`;
+                
+                html += `<div class="flex-grow flex flex-col gap-2 w-full">`;
+                
+                currentCard.facts.forEach((fact, index) => {
+                    html += `
+                        <div class="flex items-start gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200 shadow-sm items-center">
+                            <span class="flex-shrink-0 bg-cyan-500 text-white w-6 h-6 rounded-full flex items-center justify-center font-bold text-xs shadow-sm">${index + 1}</span>
+                            <span class="text-gray-700 text-sm leading-snug font-medium text-justify">${fact}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`; // End List Container
+                html += `</div>`; // End Main Container
+            }
+
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function renderEndScreen() {
+            cardHeader.style.display = 'none';
+            btnNext.innerHTML = 'Hết bài';
+
+            let html = `
+                <div class="animate-fade-in flex flex-col items-center justify-center h-full text-center space-y-6 px-4 py-8">
+                    
+                    <div class="bg-gradient-to-br from-cyan-100 to-blue-200 p-6 rounded-full shadow-lg shadow-cyan-200">
+                        <i data-lucide="award" class="w-20 h-20 text-cyan-600 fill-cyan-600"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-700 mb-3">Bé Giỏi Quá!</h2>
+                        <p class="text-gray-600 text-base md:text-lg leading-relaxed">
+                            Chúc mừng <b>"Bé"</b> đã hoàn thành hành trình khám phá ${dataSources.length} Cây Cầu & Thành Phố Độc Đáo Trên Thế Giới!
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col gap-4 w-full items-center mt-2">
+                         <a href="https://catalog.zalo.me/?cid=Cj7DJZwIc0rDhRz0DP6M2ZogmrT3w-GVCQNEIK2Gdc0fjSuv98Jh5G" 
+                           target="_blank"
+                           class="w-full max-w-xs flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-pink-200 transition-all hover:scale-105 transform border-2 border-white ring-2 ring-pink-100">
+                            <i data-lucide="gift" class="w-5 h-5"></i>
+                            Sản phẩm cho sức khoẻ Mẹ & Bé 
+                        </a>
+
+                        <a href="https://catalog.zalo.me/?cid=CjBEIJkIcGf8hRv7C96N3Jcgmb16w-KODANFJaMGdsSijSy-8OJg4W" 
+                           target="_blank"
+                           class="inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-200 transition-all hover:scale-105 transform border border-blue-400">
+                            <i data-lucide="brain-circuit" class="w-5 h-5"></i>
+                            Sản phẩm phát triển trí tuệ & Cảm xúc cho bé
+                        </a>
+                    </div>
+                    
+                    <button 
+                        onclick="resetApp()"
+                        class="flex items-center gap-2 text-cyan-600 hover:text-cyan-800 font-semibold text-sm mt-4 bg-cyan-50 px-5 py-2 rounded-full transition-colors border border-cyan-100">
+                        <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                        Khám phá lại từ đầu
+                    </button>
+                </div>
+            `;
+            contentEl.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        function handleCardClick() {
+            if (isEndScreen) return;
+            flipCard();
+        }
+
+        function flipCard() {
+            isFlipped = !isFlipped;
+            renderCard();
+        }
+
+        function nextCard() {
+            event.stopPropagation();
+            if (isEndScreen) return;
+
+            if (currentIndex < dataSources.length - 1) {
+                currentIndex++;
+                isFlipped = false;
+                renderCard();
+            } else {
+                isEndScreen = true;
+                isFlipped = false;
+                renderCard();
+            }
+        }
+
+        function prevCard() {
+            event.stopPropagation();
+            if (isEndScreen) {
+                isEndScreen = false;
+                currentIndex = dataSources.length - 1;
+                renderCard();
+                return;
+            }
+
+            if (currentIndex > 0) {
+                isFlipped = false;
+                currentIndex--;
+                renderCard();
+            }
+        }
+
+        function resetApp() {
+            event.stopPropagation();
+            currentIndex = 0;
+            isFlipped = false;
+            isEndScreen = false;
+            renderCard();
+        }
+
+        // --- Init ---
+        lucide.createIcons();
+        renderCard();
+
+    </script>
+</body>
+</html>
